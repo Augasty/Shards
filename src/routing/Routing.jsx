@@ -1,16 +1,13 @@
 /* eslint-disable react/prop-types */
 import { Route, Routes } from 'react-router';
 import { ErrorBoundary } from 'react-error-boundary';
-
-import { useAuthState } from 'react-firebase-hooks/auth';
 import { useEffect } from 'react';;
 import Navbar from '../components/navbar/Navbar';
 import TaskList from '../components/tasks/TaskList/TaskList';
-import { auth } from '../firebase';
 import TaskDetails from '../components/tasks/TaskDetails/TaskDetails';
 import CreateTask from '../components/tasks/createTask/CreateTask';
 
-const ErrorFallback = ({ error, resetErrorBoundary }) => {
+function ErrorFallback({ error, resetErrorBoundary }) {
   // useEffect to trigger resetErrorBoundary once when the component mounts
   // to avoid the error when we logout from task change screen
   useEffect(() => {
@@ -24,10 +21,9 @@ const ErrorFallback = ({ error, resetErrorBoundary }) => {
       <button onClick={resetErrorBoundary}>Try Again</button>
     </div>
   );
-};
+}
 
 const Routing = () => {
-  const [user] = useAuthState(auth);
  
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
@@ -35,7 +31,6 @@ const Routing = () => {
 
             
             <Navbar />
- 
             <div>
 
             <Routes>

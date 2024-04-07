@@ -1,18 +1,22 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useState } from 'react';
+import {  useState } from 'react';
 import styles from './styles.module.css';
 
 import btn from '../../../sharedStyles/BigButtonStyle.module.css';
-import { addDoc, collection, doc, getDoc, increment, updateDoc } from 'firebase/firestore';
+import { addDoc, collection, getDocs, } from 'firebase/firestore';
 import { auth, db } from '../../../firebase';
 import { useNavigate } from 'react-router-dom';
+import { setTasksFromFireBase } from '../taskSlice';
+import { useDispatch } from 'react-redux';
 
 const CreateTask = () => {
   const initialTaskObject = { openToAll: false, deadline: "9999-12-31", };
   const [task, setTask] = useState({ ...initialTaskObject });
 
 
+  const dispatch = useDispatch();
   const curuser = auth.currentUser;
+  console.log(curuser)
   const history = useNavigate();
 
 
@@ -28,9 +32,8 @@ const CreateTask = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await addDoc(collection(db, 'boards'), {
+      await addDoc(collection(db, 'users', curuser.email, 'taskList'), {
         ...task,
-        authorDetails: curuser.email,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
       });
@@ -38,6 +41,31 @@ const CreateTask = () => {
       // console.log("task created", task);
 
 
+
+
+      // also fetch all data
+
+      try {
+        const TaskSnapShot = await getDocs(collection(db, 'users', curuser.email, 'taskList'));
+
+        if (!TaskSnapShot.empty) {
+          const tasksData = TaskSnapShot.docs.map((doc) => {
+            return {
+              id: doc.id,
+              ...doc.data(),
+            };
+          });
+
+
+          try {
+            dispatch(setTasksFromFireBase([...tasksData]));
+          } catch (e) {
+            console.warn('error uploading tasks in redux', e);
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching tasks from Firebase:', error);
+      }
     } catch (e) {
       console.error(e);
     }
@@ -68,41 +96,6 @@ const CreateTask = () => {
           placeholder="Task Content"
         ></textarea>
 
-
-
-        <div className={` `}>
-          <select
-            id="priority"
-            className={styles.prioritySelect}
-            onChange={handleChange}
-            required
-            placeholder="Priority"
-          >
-            <option value="">Select priority</option>
-            <option value="Low">Low</option>
-            <option value="Medium">Medium</option>
-            <option value="High">High</option>
-          </select>
-        </div>
-
-        <div className={styles.taskDetailsTop}>
-          <span className={styles.Deadline}>
-            <label htmlFor="deadline">Deadline (optional)</label>
-            <input
-              type="date"
-              id="deadline"
-              className={`  ${styles.taskTitleInput}`}
-              onChange={handleChange}
-              min={new Date().toISOString().split('T')[0]}
-              max="2999-12-31"
-            />
-          </span>
-
-          <span className={styles.openToAll}>
-            <label htmlFor="Open to all">Open to all</label>
-            <input type="checkbox" id="openToAll" className={`${styles.checkbox}`} onChange={handleChange} />
-          </span>
-        </div>
 
         <div className={` `}>
           <select id="taskStatus" className={`${styles.taskStatusSelect}`} onChange={handleChange} required>

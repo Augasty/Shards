@@ -5,9 +5,12 @@ import topchicken from '../../../assets/topchicken.jpg';
 import Aurelius from '../../../assets/Aurelius.png';
 import { useNavigate } from 'react-router-dom';
 import Theme from './Theme/Theme';
+import { auth, db } from '../../firebase';
+import { GoogleAuthProvider, browserSessionPersistence, setPersistence, signInWithPopup, signOut } from 'firebase/auth';
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 
 const Navbar = () => {
-  const curuser = true;
+  const curuser = auth.currentUser;
   const navigate = useNavigate();
 
   // for chicken
@@ -15,6 +18,38 @@ const Navbar = () => {
 
 
 
+  const SignInWithGoogle = async () => {
+    try {
+      const provider = new GoogleAuthProvider();
+      await setPersistence(auth, browserSessionPersistence);
+      const result = await signInWithPopup(auth, provider);
+  
+      // Check if the user's email exists in the 'database1' collection
+      const userEmail = result.user.email;
+  
+      const userRef = doc(db, "users", userEmail);
+  
+      const userSnapshot = await getDoc(userRef);
+  
+      if (!userSnapshot.exists()) {
+        // console.log('new');
+        const userData = {
+          email: userEmail,
+        };
+        await setDoc(doc(db, "users", userEmail), userData);
+
+  
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleSignOut = () => {
+    signOut(auth);
+  };
+  const handleSignIn = () => {
+    SignInWithGoogle();
+  };
   return (
     <nav className={styles.navbar}>
       <div className={styles.logo}>
@@ -23,7 +58,7 @@ const Navbar = () => {
       </div>
       <div>
         <ul className={styles.navbarList}>
-          {curuser && (
+          {curuser ? (
             <>
               <div className={styles.liDivItems}>
                 <li className={styles.navbarListItem}>
@@ -40,6 +75,12 @@ const Navbar = () => {
                 </li>
               </div>
             </>
+          ):(
+            <div className={styles.liDivItems}>
+            <li className={styles.navbarListItem}>
+              <div onClick={() => handleSignIn()}>Log In</div>
+            </li>
+          </div>
           )}
             <NavLink onClick={() => setToggleChicken(!toggleChicken)}>
               <img src={toggleChicken && curuser?.photoURL ? curuser?.photoURL : topchicken} alt="user" />
