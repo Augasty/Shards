@@ -3,10 +3,9 @@ import { SmartTime } from "./SmartTIme";
 import styles from "./TaskSummary.module.css";
 import { Link } from "react-router-dom";
 
-const TaskSummary = ({ task, createdAtShown }) => {
-  const displayTime = createdAtShown ? task.createdAt : task.updatedAt;
+const TaskSummary = ({ task }) => {
 
-  const formattedDate = SmartTime(displayTime);
+  const formattedDate = SmartTime(task.createdAt);
 
 
   return (

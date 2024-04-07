@@ -8,6 +8,8 @@ import Theme from './Theme/Theme';
 import { auth, db } from '../../firebase';
 import { GoogleAuthProvider, browserSessionPersistence, setPersistence, signInWithPopup, signOut } from 'firebase/auth';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { useDispatch } from 'react-redux';
+import { fetchTasks } from '../tasks/fetchTasks';
 
 const Navbar = () => {
   const curuser = auth.currentUser;
@@ -17,6 +19,7 @@ const Navbar = () => {
   const [toggleChicken, setToggleChicken] = useState(true);
 
 
+  const dispatch = useDispatch();
 
   const SignInWithGoogle = async () => {
     try {
@@ -39,6 +42,8 @@ const Navbar = () => {
         await setDoc(doc(db, "users", userEmail), userData);
 
   
+      }else{
+        fetchTasks(curuser,dispatch)
       }
     } catch (error) {
       console.log(error);

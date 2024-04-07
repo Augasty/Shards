@@ -3,11 +3,13 @@ import {  useState } from 'react';
 import styles from './styles.module.css';
 
 import btn from '../../../sharedStyles/BigButtonStyle.module.css';
-import { addDoc, collection, getDocs, } from 'firebase/firestore';
+import { addDoc, collection} from 'firebase/firestore';
 import { auth, db } from '../../../firebase';
 import { useNavigate } from 'react-router-dom';
-import { setTasksFromFireBase } from '../taskSlice';
 import { useDispatch } from 'react-redux';
+import { fetchTasks } from '../fetchTasks';
+
+
 
 const CreateTask = () => {
   const initialTaskObject = { openToAll: false, deadline: "9999-12-31", };
@@ -44,28 +46,8 @@ const CreateTask = () => {
 
 
       // also fetch all data
+      fetchTasks(curuser,dispatch)
 
-      try {
-        const TaskSnapShot = await getDocs(collection(db, 'users', curuser.email, 'taskList'));
-
-        if (!TaskSnapShot.empty) {
-          const tasksData = TaskSnapShot.docs.map((doc) => {
-            return {
-              id: doc.id,
-              ...doc.data(),
-            };
-          });
-
-
-          try {
-            dispatch(setTasksFromFireBase([...tasksData]));
-          } catch (e) {
-            console.warn('error uploading tasks in redux', e);
-          }
-        }
-      } catch (error) {
-        console.error('Error fetching tasks from Firebase:', error);
-      }
     } catch (e) {
       console.error(e);
     }

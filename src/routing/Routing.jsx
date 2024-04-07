@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Route, Routes } from 'react-router';
 import { ErrorBoundary } from 'react-error-boundary';
-import { useEffect } from 'react';;
+import { useEffect } from 'react';
 import Navbar from '../components/navbar/Navbar';
 import TaskList from '../components/tasks/TaskList/TaskList';
 import TaskDetails from '../components/tasks/TaskDetails/TaskDetails';
@@ -30,11 +30,18 @@ const Routing = () => {
         
 
             
-            <Navbar />
+
             <div>
 
             <Routes>
-              <Route path="/" element={ <TaskList />} />
+              <Route path="/" element={ 
+                <>
+                            <Navbar />
+            <TaskList />
+                </>
+
+
+              } />
 
               <Route path="/task/:id" element={<TaskDetails/>} />
 
