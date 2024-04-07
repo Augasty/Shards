@@ -1,0 +1,21 @@
+
+.BigButton {
+    background-color: var(--button-color);
+    font-weight: bold;
+    border-radius: var(--button-radius);
+    padding: 6px 10px;
+    border: var(--big-button-border);
+    cursor: pointer;
+    font-family: var(--font-family);
+    width: 15vw;
+    border: 0;
+  }
+  
+  .BigButton:hover {
+    background-color: var(--button-hover-color);
+    border: var(--big-button-border-hover); 
+  }
+  
+  .BigButton:focus {
+    background-color: var(--button-active-color);
+  }
