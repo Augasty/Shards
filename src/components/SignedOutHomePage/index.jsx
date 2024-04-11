@@ -6,15 +6,12 @@ import styles from './styles.module.css';
 import { GoogleAuthProvider, browserSessionPersistence, setPersistence, signInWithPopup } from 'firebase/auth';
 import { auth, db } from '../../firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
-import { fetchShards } from '../Shards/fetchShards';
-import { useDispatch } from 'react-redux';
+
 
 const SignedOutHomePage = () => {
   // going to homepage when logging in
   const history = useNavigate();
-  const curuser = auth.currentUser;
-  
-  const dispatch = useDispatch();
+
 
   const SignInWithGoogle = async () => {
     try {
@@ -37,9 +34,6 @@ const SignedOutHomePage = () => {
         await setDoc(doc(db, "users", userEmail), userData);
         console.log('signing in')
   
-      }
-      else{
-        fetchShards(curuser,dispatch)
       }
     } catch (error) {
       console.log(error);

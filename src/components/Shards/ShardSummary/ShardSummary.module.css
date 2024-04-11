@@ -5,30 +5,21 @@
   border-radius: var(--border-radius);
   font-family: var(--font-family);
   width:8.2vw;
-  height: max-content;
   min-height: 8vh;
   text-align: left;
   color: black;
   user-select: none;
-  display: grid
-
-}
-
-.Finished {
-  background-color: var(--finished);
-}
-
-.Pending {
-  background-color: var(--pending)
-}
-
-.Active {
+  display: grid;
+  
   background-color: var(--active);
+
 }
 
-.Overdue {
-  background-color: var(--overdue)
-}
+.ShardSummary > p{
+  text-decoration: none !important
+} 
+
+
 
 
 .ShardSummaryTitle {

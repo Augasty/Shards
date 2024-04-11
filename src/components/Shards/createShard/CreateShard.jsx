@@ -7,7 +7,7 @@ import { addDoc, collection} from 'firebase/firestore';
 import { auth, db } from '../../../firebase';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { fetchShards } from '../fetchShards';
+import { addSingleShard } from '../ShardSlice';
 
 
 
@@ -34,19 +34,19 @@ const CreateShard = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await addDoc(collection(db, 'users', curuser.email, 'ShardList'), {
+      const ShardData = {
         ...Shard,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
-      });
+      }
+      await addDoc(collection(db, 'users', curuser.email, 'ShardList'), ShardData );
 
       // console.log("Shard created", Shard);
 
 
+      // add it to the existing redux store
+      dispatch(addSingleShard(ShardData)); 
 
-
-      // also fetch all data
-      fetchShards(curuser,dispatch)
 
     } catch (e) {
       console.error(e);

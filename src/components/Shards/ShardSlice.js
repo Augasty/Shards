@@ -10,6 +10,9 @@ const ShardSlice = createSlice({
     reducers: {
         setShardsFromFireBase:(state,action)=>{
             return action.payload
+        },
+        addSingleShard: (state, action) => {
+            state.push(action.payload);
         }
     }
 })
