@@ -1,0 +1,54 @@
+
+  /* ShardList.module.css */
+
+.mainContainer{ 
+  display: flex;
+  height: 93vh;
+
+  user-select: none;
+  width: 95vw;
+}
+.ShardList {
+  justify-content: space-around;
+  display: flex;
+  position: relative;
+  padding: 1%;
+  padding-left:  1%;
+  padding-right: 1%;
+  padding-top: 5px;
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+
+  left: 0%;
+}
+
+
+.ShardListGrid{
+  display: grid;
+}
+
+
+.ShardColumn {
+  width: 450px;
+  text-align: center; /* Center children horizontally */
+}
+
+.ShardColumn > a {
+  display: inline-flex;
+}
+
+
+.columnHeader {
+  text-decoration: none; /* Remove underline from h2 */
+  margin: auto;
+  color: var(--secondary-text-color); /* Set text color */
+  width: fit-content;
+  font-size: 2.5vh; /* Increase font size for a more heading-like appearance */
+  font-weight: bold; /* Make the text bold for emphasis */
+  letter-spacing: 1px; /* Add a small letter-spacing for clarity */
+  align-self: center;
+}
+
+.ShardColumn a {
+  text-decoration: none; /* Remove underline from links */
+}

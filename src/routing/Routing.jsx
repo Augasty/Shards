@@ -3,13 +3,18 @@ import { Route, Routes } from 'react-router';
 import { ErrorBoundary } from 'react-error-boundary';
 import { useEffect } from 'react';
 import Navbar from '../components/navbar/Navbar';
-import TaskList from '../components/tasks/TaskList/TaskList';
-import TaskDetails from '../components/tasks/TaskDetails/TaskDetails';
-import CreateTask from '../components/tasks/createTask/CreateTask';
+import ShardDetails from '../components/Shards/ShardDetails/ShardDetails';
+import CreateShard from '../components/Shards/createShard/CreateShard';
+import { auth } from '../firebase';
+import ShardList from '../components/Shards/ShardList/ShardList';
+import SignedOutHomePage from '../components/SignedOutHomePage';
+
+import { useAuthState } from 'react-firebase-hooks/auth';
+
 
 function ErrorFallback({ error, resetErrorBoundary }) {
   // useEffect to trigger resetErrorBoundary once when the component mounts
-  // to avoid the error when we logout from task change screen
+  // to avoid the error when we logout from Shard change screen
   useEffect(() => {
     resetErrorBoundary();
   }, [resetErrorBoundary]);
@@ -24,34 +29,40 @@ function ErrorFallback({ error, resetErrorBoundary }) {
 }
 
 const Routing = () => {
- 
+
+  const [user] = useAuthState(auth);
+
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback}>
-        
-
-            
-
-            <div>
-
-            <Routes>
-              <Route path="/" element={ 
-                <>
-                            <Navbar />
-            <TaskList />
-                </>
 
 
-              } />
 
-              <Route path="/task/:id" element={<TaskDetails/>} />
 
-              <Route
-                path='/create-task'
-                element={ <CreateTask /> }
-              />
+      <div>
+        {user ?
 
-           </Routes>
-            </div>
+          <Routes>
+            <Route path="/" element={
+              <>
+                <Navbar />
+                <ShardList />
+              </>
+
+
+            } />
+
+            <Route path="/shard/:id" element={<ShardDetails />} />
+
+            <Route
+              path='/create-shard'
+              element={<CreateShard />}
+            />
+
+          </Routes>
+          : <SignedOutHomePage />}
+
+
+      </div>
     </ErrorBoundary>
   );
 };

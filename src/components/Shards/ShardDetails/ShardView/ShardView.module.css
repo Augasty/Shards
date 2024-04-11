@@ -1,0 +1,98 @@
+/* Shard Details Container Style */
+body {
+  font-family: var(--font-family);
+
+
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100vw;
+  background-color: var(--bg-color);
+}
+
+
+.ShardDetails {
+  background-color: var(--background-color);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 40vw;
+  align-items: center;
+  justify-content: center;
+}
+
+.Pending {
+  background-color: var(--pending)
+}
+
+.Finished {
+  background-color: var(--finished)
+}
+
+
+
+.Active {
+  background-color: var(--active)
+}
+
+.Overdue {
+  background-color: var(--overdue)
+}
+
+/* Shard Details Title Style */
+.ShardDetailsTitle {
+  color: var(--card-text);
+  ;
+  margin-bottom: 15px;
+}
+
+/* Shard Details Text Style */
+.ShardDetailsText {
+  color: var(--card-text);
+  margin-bottom: 10px;
+  white-space: pre-wrap;
+}
+
+
+
+.ShardDetailsTop {
+  display: flex;
+  justify-content: space-between;
+  color: var(--card-text);
+  font-size: 2.5vh;
+}
+
+.ShardDetailsTop span {
+  margin-bottom: 10px;
+  color: var(--card-text);
+}
+
+
+
+
+
+
+
+
+
+/* extra field for Shardchange */
+
+.inputField {
+  width: 100%;
+  background-color: inherit;
+  height: 4vh;
+  border: var(--input-box-border);
+  margin-top: 1vh;
+  margin-bottom: 1vh;
+
+}
+
+.ShardContentTextarea {
+  min-height: 100px;
+  resize: vertical;
+  font-family: inherit;
+  border-radius: 1vh;
+}

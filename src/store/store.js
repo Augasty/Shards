@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
-import taskReducer from '../components/tasks/taskSlice'
+import ShardReducer from '../components/Shards/ShardSlice'
 
 const store = configureStore({
     reducer:{
-        tasks:taskReducer,
+        Shards:ShardReducer,
     }
 })
 
