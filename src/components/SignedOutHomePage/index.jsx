@@ -31,9 +31,7 @@ const SignedOutHomePage = () => {
         const userData = {
           email: userEmail,
         };
-        await setDoc(doc(db, "users", userEmail), userData);
-        console.log('signing in')
-  
+        await setDoc(doc(db, "users", userEmail), userData);  
       }
     } catch (error) {
       console.log(error);

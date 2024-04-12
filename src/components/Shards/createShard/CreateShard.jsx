@@ -6,19 +6,16 @@ import btn from '../../../sharedStyles/BigButtonStyle.module.css';
 import { addDoc, collection} from 'firebase/firestore';
 import { auth, db } from '../../../firebase';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { addSingleShard } from '../ShardSlice';
 
 
 
-const CreateShard = () => {
-  const initialShardObject = { openToAll: false, deadline: "9999-12-31", };
-  const [Shard, setShard] = useState({ ...initialShardObject });
+
+const CreateShard = ({parentShards = []}) => {
+  const [Shard, setShard] = useState({  });
 
 
-  const dispatch = useDispatch();
   const curuser = auth.currentUser;
-  console.log(curuser)
+  // console.log(curuser)
   const history = useNavigate();
 
 
@@ -26,8 +23,7 @@ const CreateShard = () => {
   const handleChange = (e) => {
     setShard({
       ...Shard,
-      [e.target.id]: e.target.value,
-      [e.target.id]: e.target.type === 'checkbox' ? e.target.checked : e.target.value,
+      [e.target.id]: e.target.value
     });
   };
 
@@ -36,16 +32,16 @@ const CreateShard = () => {
     try {
       const ShardData = {
         ...Shard,
-        createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
+        parentShards: parentShards,
+        childrenShards: []
+
       }
       await addDoc(collection(db, 'users', curuser.email, 'ShardList'), ShardData );
 
       // console.log("Shard created", Shard);
 
 
-      // add it to the existing redux store
-      dispatch(addSingleShard(ShardData)); 
 
 
     } catch (e) {

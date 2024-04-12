@@ -1,5 +1,4 @@
-
-  /* ShardList.module.css */
+/* ShardList.module.css */
 
 .ShardList {
   justify-content: space-around;
@@ -10,7 +9,6 @@
   width: 100vw;
   height: 91.2vh;
   left: 0%;
-  background-color: aqua;
 }
 
 
@@ -22,21 +20,26 @@
 
 
 .columnHeader {
-  
+
   margin: auto;
-  color: var(--secondary-text-color); /* Set text color */
+  color: var(--secondary-text-color);
+  /* Set text color */
   width: fit-content;
-  font-size: 2.5vh; /* Increase font size for a more heading-like appearance */
-  font-weight: bold; /* Make the text bold for emphasis */
-  letter-spacing: 1px; /* Add a small letter-spacing for clarity */
+  font-size: 2.5vh;
+  /* Increase font size for a more heading-like appearance */
+  font-weight: bold;
+  /* Make the text bold for emphasis */
+  letter-spacing: 1px;
+  /* Add a small letter-spacing for clarity */
   align-self: center;
 }
 
 
-.ShardArea{
+.ShardArea {
   display: flex;
 }
 
 .ShardArea a {
-  text-decoration: none; /* Remove underline from links */
+  text-decoration: none;
+  /* Remove underline from links */
 }

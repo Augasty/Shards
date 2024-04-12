@@ -41,10 +41,11 @@ const Routing = () => {
       <div>
         {user ?
 
+            (
+            <><Navbar />
           <Routes>
             <Route path="/" element={
               <>
-                <Navbar />
                 <ShardList />
               </>
 
@@ -59,6 +60,8 @@ const Routing = () => {
             />
 
           </Routes>
+          </>
+          )
           : <SignedOutHomePage />}
 
 
