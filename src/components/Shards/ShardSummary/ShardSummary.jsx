@@ -10,16 +10,16 @@ const ShardSummary = ({ Shard }) => {
 
 
   return (
-    <Link to={"/Shard/" + Shard.id} className={styles.LinkStyle}>
-      <div
-        className={`${styles.ShardSummary} ${styles[Shard.ShardStatus]}`}
+    <div
+        className={styles.ShardSummary}
       >
+    <Link to={"/Shard/" + Shard.id} className={styles.LinkStyle}>
         <p className={styles.ShardSummaryTitle}> {Shard.title}
 
         </p>
         <p className={styles.ShardSummaryDate}>{formattedDate}</p>
-      </div>
     </Link>
+      </div>
   );
 };
 

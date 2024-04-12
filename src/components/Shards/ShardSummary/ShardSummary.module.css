@@ -5,7 +5,7 @@
   border-radius: var(--border-radius);
   font-family: var(--font-family);
   width:8.2vw;
-  min-height: 8vh;
+  height: 8vh;
   text-align: left;
   color: black;
   user-select: none;
@@ -15,10 +15,9 @@
 
 }
 
-.ShardSummary > p{
-  text-decoration: none !important
-} 
-
+.LinkStyle{
+ height: min-content;
+}
 
 
 
@@ -29,7 +28,10 @@
   margin: 0;
   color: var(--card-text);
   margin-bottom: 1vh;
+
 }
+
+
 
 .ShardSummaryDate {
   margin: 0vh;

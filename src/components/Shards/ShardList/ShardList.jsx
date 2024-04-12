@@ -9,28 +9,24 @@ import { useSelector } from 'react-redux';
 const ShardList = () => {
 
 
-  useEffect(()=>{})
+  useEffect(() => { })
   let reduxShards = useSelector((state) => state.Shards) || [];
 
- console.log(reduxShards)
+  console.log(reduxShards)
 
   return (
-    <div className={styles.mainContainer}>
 
+      <div className={styles.ShardList}>
 
-      <div
-        className={`${styles.ShardList} `}
-        style={{ width: '91.8vw' }}
-      >
+        <h2 className={styles.columnHeader}>Shards</h2>
 
-            <h2 className={styles.columnHeader}>Notes</h2>
+        <div className={styles.ShardArea}>
+        {reduxShards.map((Shard) => (
+          <ShardSummary Shard={Shard} key={Shard.id}/>
+        ))}
+        </div>
+      </div>
 
-            {reduxShards.map((Shard) => (
-              <ShardSummary Shard={Shard} key={Shard.id} />
-            ))}
-          </div>
-
-    </div>
   );
 };
 
