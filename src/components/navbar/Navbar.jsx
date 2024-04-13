@@ -1,14 +1,12 @@
 import { Link, NavLink } from 'react-router-dom';
 import styles from './Navbar.module.css'; 
-import { useEffect, useState } from 'react';
+import {  useState } from 'react';
 import topchicken from '../../../assets/topchicken.jpg';
 import Aurelius from '../../../assets/Aurelius.png';
 import { useNavigate } from 'react-router-dom';
 import Theme from './Theme/Theme';
 import { auth} from '../../firebase';
 import {  signOut } from 'firebase/auth';
-import { useDispatch } from 'react-redux';
-import {fetchShards} from "../Shards/fetchShards"
 
 
 const Navbar = () => {
@@ -17,16 +15,10 @@ const Navbar = () => {
 
   const curuser = auth.currentUser;
   
-  const dispatch = useDispatch();
-  // for chicken
   const [toggleChicken, setToggleChicken] = useState(true);
 
 
- useEffect(()=>{
-  if(curuser){
-    fetchShards(curuser,dispatch)
-  }
- },[curuser,dispatch])
+
 
   const handleSignOut = () => {
     signOut(auth);

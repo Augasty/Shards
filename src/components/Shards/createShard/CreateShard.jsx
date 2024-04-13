@@ -6,6 +6,8 @@ import btn from '../../../sharedStyles/BigButtonStyle.module.css';
 import { addDoc, collection} from 'firebase/firestore';
 import { auth, db } from '../../../firebase';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { addSingleShard } from '../ShardSlice';
 
 
 
@@ -13,7 +15,7 @@ import { useNavigate } from 'react-router-dom';
 const CreateShard = ({parentShards = []}) => {
   const [Shard, setShard] = useState({  });
 
-
+  const dispatch = useDispatch();
   const curuser = auth.currentUser;
   // console.log(curuser)
   const history = useNavigate();
@@ -37,12 +39,17 @@ const CreateShard = ({parentShards = []}) => {
         childrenShards: []
 
       }
-      await addDoc(collection(db, 'users', curuser.email, 'ShardList'), ShardData );
-
+      const docRef = await addDoc(collection(db, 'users', curuser.email, 'ShardList'), ShardData);
+      const docId = docRef.id;
+      console.log("Auto-generated document ID:", docId);
       // console.log("Shard created", Shard);
 
 
-
+      // adding the currently created shard to redux
+      dispatch(addSingleShard({
+        id:docRef.id,
+        ...ShardData
+      }));
 
     } catch (e) {
       console.error(e);

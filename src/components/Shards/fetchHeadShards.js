@@ -3,7 +3,7 @@ import { db } from "../../firebase";
 import { setShardsFromFireBase } from "./ShardSlice";
 
 
-export const fetchShards = async (curuser, dispatch) => {
+export const fetchHeadShards = async (curuser, dispatch) => {
   try {
     const ShardSnapShot = await getDocs(
       query(
@@ -21,7 +21,7 @@ export const fetchShards = async (curuser, dispatch) => {
 
 
       try {
-        console.log(ShardsData)
+        // console.log(ShardsData)
         dispatch(setShardsFromFireBase([...ShardsData]));
       } catch (e) {
         console.warn('error uploading Shards in redux', e);
