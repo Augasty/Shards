@@ -32,7 +32,7 @@ const ShardChange = ({ currentShard }) => {
   // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(updatedCurrentShard);
+    // console.log(updatedCurrentShard);
     await updateDoc(currentShardRef, {
       ...updatedCurrentShard,
       updatedAt: new Date().toISOString(),

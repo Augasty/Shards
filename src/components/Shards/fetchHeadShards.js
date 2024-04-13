@@ -21,7 +21,7 @@ export const fetchHeadShards = async (curuser, dispatch) => {
 
 
       try {
-        // console.log(ShardsData)
+        console.log(ShardsData)
         dispatch(setShardsFromFireBase([...ShardsData]));
       } catch (e) {
         console.warn('error uploading Shards in redux', e);

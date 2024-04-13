@@ -49,7 +49,7 @@ const SignedOutHomePage = () => {
       <div className={styles.content}>
         <div className={styles.logo}>
           <img src={Aurelius} alt="Aurelius Logo" />
-          <div className={styles.Aurelius}>Aurelius</div>
+          <div className={styles.Aurelius}>Shards</div>
         </div>
         <div>
           <button onClick={handleSignIn} className={styles.LoginButton}>

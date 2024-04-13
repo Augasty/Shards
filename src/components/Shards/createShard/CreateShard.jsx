@@ -1,30 +1,41 @@
 /* eslint-disable react/prop-types */
-import {  useState } from 'react';
+import { useState } from 'react';
 import styles from './styles.module.css';
 
 import btn from '../../../sharedStyles/BigButtonStyle.module.css';
-import { addDoc, collection} from 'firebase/firestore';
+import { addDoc, collection, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { auth, db } from '../../../firebase';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { addSingleShard } from '../ShardSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { addSingleShard, updateShardProperties } from '../ShardSlice';
 
 
 
 
-const CreateShard = ({parentShards = []}) => {
-  const [Shard, setShard] = useState({  });
+const CreateShard = () => {
+  const [Shard, setShard] = useState({});
 
   const dispatch = useDispatch();
   const curuser = auth.currentUser;
 
   const history = useNavigate();
 
-  // we will fetch parentshards from the params, not use the parentshard prop.
-  const params = useParams()
-  console.log(params)
+  // To fetch parentshards from the params
+  const parentId = useParams().id
 
+  let parentData = useSelector(state => {
+    if (parentId) {
+      return state.Shards.find(shard => shard.id === parentId);
+    }
+    return null;
+  });
 
+  let parentShards = [];
+  if (parentId) {
+    parentShards = [{
+      [parentId]: parentData.title
+    }]
+  }
   const handleChange = (e) => {
     setShard({
       ...Shard,
@@ -39,20 +50,48 @@ const CreateShard = ({parentShards = []}) => {
         ...Shard,
         updatedAt: new Date().toISOString(),
         parentShards: parentShards,
-        childrenShards: []
+        childrenShards: [],
 
       }
-      const docRef = await addDoc(collection(db, 'users', curuser.email, 'ShardList'), ShardData);
-      const docId = docRef.id;
-      console.log("Auto-generated document ID:", docId);
-      // console.log("Shard created", Shard);
 
-
-      // adding the currently created shard to redux
+      // adding the created doc in firestore
+      const createdShardRef = await addDoc(collection(db, 'users', curuser.email, 'ShardList'), ShardData);
+      // adding it in redux
       dispatch(addSingleShard({
-        id:docRef.id,
+        id: createdShardRef.id,
         ...ShardData
       }));
+
+
+
+      const isEmptyObject = (obj) => {
+        return Object.keys(obj).length === 0;
+      };
+      // updating the parent docs childrenShard property in firestore 
+      const ParentDocRef = doc(db, 'users', curuser.email, 'ShardList', parentId);
+      try {
+        if (isEmptyObject(parentData)) {
+          const parentDocSnapshot = await getDoc(ParentDocRef);
+          parentData = parentDocSnapshot.data();
+        }
+
+
+        // Get the existing childrenShards array or initialize it as an empty array if it doesn't exist
+        const existingChildrenShards = parentData.childrenShards || [];
+        const updatedChildrenShards = existingChildrenShards.concat({ createdShardRef: ShardData.title });
+        await updateDoc(ParentDocRef, {
+          childrenShards: updatedChildrenShards
+        });
+
+        dispatch(updateShardProperties({
+          id: parentId, // Assuming parentId is the ID of the parent shard
+          updatedProperties: { childrenShards: updatedChildrenShards }
+      }));
+      } catch (error) {
+        console.error("Error updating parent document's children property: ", error);
+      }
+
+
 
     } catch (e) {
       console.error(e);
