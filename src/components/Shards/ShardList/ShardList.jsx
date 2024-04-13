@@ -4,21 +4,13 @@ import ShardSummary from '../ShardSummary/ShardSummary';
 
 import styles from './ShardList.module.css';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { auth } from '../../../firebase';
-import { fetchHeadShards } from '../fetchHeadShards';
+import {  useSelector } from 'react-redux';
+
 
 const ShardList = () => {
 
 
-  const curuser = auth.currentUser;
-  
-  const dispatch = useDispatch();
-  useEffect(()=>{
-    if(curuser){
-      fetchHeadShards(curuser,dispatch)
-    }
-   },[curuser,dispatch])
+
 
   useEffect(() => { })
   let reduxShards = useSelector((state) => state.Shards) || [];

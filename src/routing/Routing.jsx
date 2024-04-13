@@ -41,26 +41,26 @@ const Routing = () => {
       <div>
         {user ?
 
-            (
+          (
             <><Navbar />
-          <Routes>
-            <Route path="/" element={
-              <>
-                <ShardList />
-              </>
+              <Routes>
+                <Route path="/" element={
+                  <>
+                    <ShardList />
+                  </>
 
 
-            } />
+                } />
 
-            <Route path="/shard/:id" element={<ShardDetails />} />
+                <Route path="/shard/:id" element={<ShardDetails />} />
+                <Route path="/shard/:id/create-shard" element={<CreateShard />} />
+                <Route
+                  path='/create-shard'
+                  element={<CreateShard />}
+                />
 
-            <Route
-              path='/create-shard'
-              element={<CreateShard />}
-            />
-
-          </Routes>
-          </>
+              </Routes>
+            </>
           )
           : <SignedOutHomePage />}
 

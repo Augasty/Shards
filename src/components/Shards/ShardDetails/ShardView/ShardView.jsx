@@ -3,11 +3,19 @@ import styles from './ShardView.module.css';
 
 
 import { SmartTime } from '../../ShardSummary/SmartTime';
+import { doc } from 'firebase/firestore';
+import { auth, db } from '../../../../firebase';
+import { useState } from 'react';
 const ShardView = ({ currentShard }) => {
 
+  console.log(currentShard)
+ 
+  
   if (!currentShard) {
     return <>loading</>;
   }
+
+  
   const smartCreatedAt = SmartTime(currentShard.createdAt);
   return (
     <div className={styles.container}>

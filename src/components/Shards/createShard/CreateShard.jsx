@@ -5,7 +5,7 @@ import styles from './styles.module.css';
 import btn from '../../../sharedStyles/BigButtonStyle.module.css';
 import { addDoc, collection} from 'firebase/firestore';
 import { auth, db } from '../../../firebase';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addSingleShard } from '../ShardSlice';
 
@@ -17,9 +17,12 @@ const CreateShard = ({parentShards = []}) => {
 
   const dispatch = useDispatch();
   const curuser = auth.currentUser;
-  // console.log(curuser)
+
   const history = useNavigate();
 
+  // we will fetch parentshards from the params, not use the parentshard prop.
+  const params = useParams()
+  console.log(params)
 
 
   const handleChange = (e) => {
