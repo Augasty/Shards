@@ -8,7 +8,7 @@ export const fetchHeadShards = async (curuser, dispatch) => {
     const ShardSnapShot = await getDocs(
       query(
         collection(db, 'users', curuser.email, 'ShardList'),
-        where('parentShards', '==', [])
+        where('showInHome', '==', true)
       ));
 
     if (!ShardSnapShot.empty) {

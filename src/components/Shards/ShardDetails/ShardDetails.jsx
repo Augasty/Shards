@@ -37,6 +37,8 @@ const ShardDetails = () => {
   if(isEmptyObject(currentShard)){
     return <>loading</>
   }
-    return (auth && currentShard && <ShardChange currentShard={currentShard}/>  )}
+    return <ShardChange currentShard={currentShard}/>  
+  
+  }
 
 export default ShardDetails

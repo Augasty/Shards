@@ -51,6 +51,7 @@ const CreateShard = () => {
         updatedAt: new Date().toISOString(),
         parentShards: parentShards,
         childrenShards: [],
+        showInHome: parentShards.length == 0 
 
       }
 

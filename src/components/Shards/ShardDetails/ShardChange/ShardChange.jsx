@@ -7,12 +7,15 @@ import styles from './ShardView.module.css';
 
 import btn from '../../../../sharedStyles/MultipleButtonStyle.module.css';
 import { SmartTime } from '../../ShardSummary/SmartTime';
+import { updateShardProperties } from '../../ShardSlice';
+import { useDispatch } from 'react-redux';
 
 const ShardChange = ({ currentShard }) => {
 
   const curuser = auth.currentUser
 
-  console.log(curuser, currentShard)
+  const dispatch = useDispatch();
+  
   const currentShardRef = doc(db, 'users', curuser?.email, 'ShardList', currentShard?.id);
   const [updatedCurrentShard, setupdatedCurrentShard] = useState({
     ...currentShard,
@@ -40,6 +43,12 @@ const ShardChange = ({ currentShard }) => {
 
 
 
+    // update in redux
+    dispatch(updateShardProperties({
+      id: currentShard.id, 
+      updatedProperties: { ...updatedCurrentShard }
+  }))
+
 
     history(-1); //back to the previous screen
   };
@@ -62,7 +71,13 @@ const ShardChange = ({ currentShard }) => {
           required
           className={`${styles.inputField} ${styles.ShardContentTextarea}`}
         />
-
+        <textarea
+          id="title"
+          value={updatedCurrentShard.title}
+          onChange={handleChange}
+          required
+          className={`${styles.inputField} ${styles.ShardContentTextarea}`}
+        />
 
         <>
           <div className={styles.ShardDetailsTop}>

@@ -26,5 +26,5 @@ const ShardSlice = createSlice({
     }
 })
 
-export const {setShardsFromFireBase, addSingleShard} = ShardSlice.actions
+export const {setShardsFromFireBase, addSingleShard, updateShardProperties} = ShardSlice.actions
 export default ShardSlice.reducer
