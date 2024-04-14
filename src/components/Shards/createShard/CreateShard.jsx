@@ -33,7 +33,7 @@ const CreateShard = () => {
   let parentShards = [];
   if (parentId) {
     parentShards = [{
-      [parentId]: parentData.title
+      [parentId]: [parentData.title,parentData.updatedAt]
     }]
   }
   const handleChange = (e) => {
@@ -79,7 +79,7 @@ const CreateShard = () => {
 
         // Get the existing childrenShards array or initialize it as an empty array if it doesn't exist
         const existingChildrenShards = parentData.childrenShards || [];
-        const updatedChildrenShards = existingChildrenShards.concat({ createdShardRef: ShardData.title });
+        const updatedChildrenShards = existingChildrenShards.concat({ [createdShardRef.id]: [ShardData.title, ShardData.updatedAt] });
         await updateDoc(ParentDocRef, {
           childrenShards: updatedChildrenShards
         });

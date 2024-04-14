@@ -7,3 +7,8 @@ in every shard put the name and id of their parent shards and children shards in
 when we click a child or parent shard, first check if it is stored in redux, if not, then fetch it from firestore.
 
 while opening a doc in changedoc (either by clicking it, or by refreshing), if it is not in redux, immediately fetch it.
+
+
+Need to implement a trigger for logging in an account from multiple place and updating same data from there concurrently.
+
+use draftjs for text fields.

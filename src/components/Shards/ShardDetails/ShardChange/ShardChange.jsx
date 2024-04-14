@@ -61,9 +61,13 @@ const ShardChange = ({ currentShard }) => {
         onSubmit={handleSubmit}
         className={`${styles.ShardDetails} ${styles[currentShard.ShardStatus]}`}
       >
-        <h2 className={styles.ShardDetailsTitle}>
-          <strong>Change: </strong> {updatedCurrentShard.title}
-        </h2>
+                <textarea
+          id="title"
+          value={updatedCurrentShard.title}
+          onChange={handleChange}
+          required
+          className={`${styles.inputField} ${styles.ShardContentTextarea}`}
+        />
         <textarea
           id="content"
           value={updatedCurrentShard.content}
@@ -71,13 +75,7 @@ const ShardChange = ({ currentShard }) => {
           required
           className={`${styles.inputField} ${styles.ShardContentTextarea}`}
         />
-        <textarea
-          id="title"
-          value={updatedCurrentShard.title}
-          onChange={handleChange}
-          required
-          className={`${styles.inputField} ${styles.ShardContentTextarea}`}
-        />
+
 
         <>
           <div className={styles.ShardDetailsTop}>

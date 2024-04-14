@@ -15,6 +15,8 @@ const SignedOutHomePage = () => {
 
   const SignInWithGoogle = async () => {
     try {
+
+      
       const provider = new GoogleAuthProvider();
       await setPersistence(auth, browserSessionPersistence);
       const result = await signInWithPopup(auth, provider);
@@ -34,7 +36,7 @@ const SignedOutHomePage = () => {
         await setDoc(doc(db, "users", userEmail), userData);  
       }
     } catch (error) {
-      console.log(error);
+      console.log('error while logging in',error);
     }
   };
   const handleSignIn = () => {
