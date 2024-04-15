@@ -9,6 +9,7 @@ import btn from '../../../../sharedStyles/MultipleButtonStyle.module.css';
 import { SmartTime } from '../../ShardSummary/SmartTime';
 import { updateShardProperties } from '../../ShardSlice';
 import { useDispatch } from 'react-redux';
+import CustomInput from './CustomInput';
 
 const ShardChange = ({ currentShard }) => {
 
@@ -76,7 +77,7 @@ const ShardChange = ({ currentShard }) => {
           className={`${styles.inputField} ${styles.ShardContentTextarea}`}
         />
 
-
+        <CustomInput title={updatedCurrentShard.title} content={updatedCurrentShard.content}/>
         <>
           <div className={styles.ShardDetailsTop}>
 
