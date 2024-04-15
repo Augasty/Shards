@@ -9,7 +9,7 @@ import btn from '../../../../sharedStyles/MultipleButtonStyle.module.css';
 import { SmartTime } from '../../ShardSummary/SmartTime';
 import { updateShardProperties } from '../../ShardSlice';
 import { useDispatch } from 'react-redux';
-import CustomInput from './CustomInput';
+import CustomInput from '../../InputForm/CustomInput';
 
 const ShardChange = ({ currentShard }) => {
 
@@ -25,8 +25,7 @@ const ShardChange = ({ currentShard }) => {
 
 
 
-  const handleChange = (e) => {
-    const { id, value } = e.target;
+  const handleChange = (id,value) => {
     setupdatedCurrentShard((prevData) => ({
       ...prevData,
       [id]: value,
@@ -62,22 +61,9 @@ const ShardChange = ({ currentShard }) => {
         onSubmit={handleSubmit}
         className={`${styles.ShardDetails} ${styles[currentShard.ShardStatus]}`}
       >
-                <textarea
-          id="title"
-          value={updatedCurrentShard.title}
-          onChange={handleChange}
-          required
-          className={`${styles.inputField} ${styles.ShardContentTextarea}`}
-        />
-        <textarea
-          id="content"
-          value={updatedCurrentShard.content}
-          onChange={handleChange}
-          required
-          className={`${styles.inputField} ${styles.ShardContentTextarea}`}
-        />
-
-        <CustomInput title={updatedCurrentShard.title} content={updatedCurrentShard.content}/>
+       
+        <CustomInput title={updatedCurrentShard.title} 
+        content={updatedCurrentShard.content} handleChange={handleChange}/>
         <>
           <div className={styles.ShardDetailsTop}>
 

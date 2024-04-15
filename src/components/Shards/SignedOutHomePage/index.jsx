@@ -1,10 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 
-import Aurelius from '../../../assets/Aurelius.png';
-import logoutbg from '../../../assets/logoutbg.png';
+import Aurelius from '../../../../assets/Aurelius.png';
+import logoutbg from '../../../../assets/logoutbg.png';
 import styles from './styles.module.css';
 import { GoogleAuthProvider, browserSessionPersistence, setPersistence, signInWithPopup } from 'firebase/auth';
-import { auth, db } from '../../firebase';
+import { auth, db } from '../../../firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 
 
