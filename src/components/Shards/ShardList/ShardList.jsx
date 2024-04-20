@@ -17,9 +17,9 @@ const ShardList = () => {
 
   // filter the shards with no parent for home screen, because we will also add every shard that we visit or create, in redux, to avoid repeatedly querying the same data.
 
-  let filteredReduxShards = reduxShards?.filter(shard=>shard.parentShards.length == 0)
+  let filteredReduxShards = reduxShards?.filter(shard=>shard.showInHome == true)
 
-  console.log(filteredReduxShards)
+  // console.log(filteredReduxShards)
 
   return (
 

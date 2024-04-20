@@ -27,6 +27,7 @@ const ShardChange = ({ currentShard }) => {
 
   const handleChange = (id,value) => {
     // console.log('change triggered')
+    console.log([id],value.outerHTML)
     setupdatedCurrentShard((prevData) => ({
       ...prevData,
       [id]: value.outerHTML,

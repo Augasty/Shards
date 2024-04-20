@@ -2,7 +2,7 @@
 
 .ShardList {
   justify-content: space-around;
-  display: grid;
+
   position: relative;
   padding: 0;
   padding-top: 10px;
@@ -31,12 +31,13 @@
   /* Make the text bold for emphasis */
   letter-spacing: 1px;
   /* Add a small letter-spacing for clarity */
-  align-self: center;
+
 }
 
 
 .ShardArea {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto auto ;
 }
 
 .ShardArea a {

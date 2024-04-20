@@ -8,13 +8,18 @@ const ShardSummary = ({ Shard }) => {
 
   const formattedDate = SmartTime(Shard.createdAt);
 
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(Shard.title, 'text/html');
+  const strippedTitle = doc.body.textContent;
 
   return (
     <div
         className={styles.ShardSummary}
       >
     <Link to={"/Shard/" + Shard.id} className={styles.LinkStyle}>
-        <p className={styles.ShardSummaryTitle} dangerouslySetInnerHTML={{ __html: Shard.title }}/>
+        <p className={styles.ShardSummaryTitle}> {strippedTitle}
+
+        </p>
         <p className={styles.ShardSummaryDate}>{formattedDate}</p>
     </Link>
       </div>

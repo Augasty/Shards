@@ -38,6 +38,7 @@ const CreateShard = () => {
     }]
   }
   const handleChange = (id, value) => {
+    console.log([id],value.outerHTML)
     setShard(prevShard => ({
       ...prevShard,
       [id]: value.outerHTML, // Use 'id' as a dynamic property key
