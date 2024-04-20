@@ -3,13 +3,13 @@ import { useState } from 'react';
 import { auth, db } from '../../../../firebase';
 import { doc, updateDoc } from 'firebase/firestore';
 import { Link, useNavigate } from 'react-router-dom';
-import styles from './ShardView.module.css';
+import styles from './ShardChange.module.css';
 
 import btn from '../../../../sharedStyles/MultipleButtonStyle.module.css';
 import { SmartTime } from '../../ShardSummary/SmartTime';
 import { updateShardProperties } from '../../ShardSlice';
 import { useDispatch } from 'react-redux';
-import CustomInput from '../../InputForm/CustomInput';
+import { CustomInput } from '../../InputForm/CustomInput';
 
 const ShardChange = ({ currentShard }) => {
 
@@ -26,16 +26,17 @@ const ShardChange = ({ currentShard }) => {
 
 
   const handleChange = (id,value) => {
+    // console.log('change triggered')
     setupdatedCurrentShard((prevData) => ({
       ...prevData,
-      [id]: value,
+      [id]: value.outerHTML,
     }));
   };
 
   // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log(updatedCurrentShard);
+    // console.log('submission triggered');
     await updateDoc(currentShardRef, {
       ...updatedCurrentShard,
       updatedAt: new Date().toISOString(),
@@ -62,7 +63,8 @@ const ShardChange = ({ currentShard }) => {
         className={`${styles.ShardDetails} ${styles[currentShard.ShardStatus]}`}
       >
        
-        <CustomInput title={updatedCurrentShard.title} 
+        <CustomInput 
+        title={updatedCurrentShard.title} 
         content={updatedCurrentShard.content} handleChange={handleChange}/>
         <>
           <div className={styles.ShardDetailsTop}>

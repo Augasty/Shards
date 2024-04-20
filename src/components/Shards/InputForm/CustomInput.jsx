@@ -1,64 +1,107 @@
-/* eslint-disable react/prop-types */
 
-import Document from '@tiptap/extension-document'
-import Placeholder from '@tiptap/extension-placeholder'
-import { EditorContent, EditorProvider, useEditor } from '@tiptap/react'
+import {
+  BubbleMenu,
+  EditorContent,
+  FloatingMenu,
+  useEditor,
+} from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
-import MenuBar from './MenuBar/MenuBar'
 
 
-
-const CustomDocument = Document.extend({
-  content: 'heading block*',
-})
-
-const CustomInput = ({title,content, handleChange}) => {
+// eslint-disable-next-line react/prop-types
+export const CustomInput = ({ title='<h1></h1>', content='<p></p>', handleChange }) => {
   const editor = useEditor({
     extensions: [
-      CustomDocument,
-      StarterKit.configure({
-        document: false,
-      }),
-      Placeholder.configure({
-        placeholder: ({ node }) => {
-          if (node.type.name === 'heading') {
-            return 'What’s the title?'
-          }
-
-          return 'Can you add some further context?'
-        },
-      }),
-    ],
-    content: `
-      <h1>
-        ${title}
-      </h1>
-      <p>
-        ${content}
-      </p>
-    `,
-    onUpdate({editor}){
+      StarterKit,
+      
+    ], content: `
+      ${title}
+      ${content}
+  `,
+    onUpdate({ editor }) {
       const htmlContent = editor.getHTML();
       const parser = new DOMParser();
       const doc = parser.parseFromString(htmlContent, 'text/html');
       const titleElement = doc.querySelector('h1');
-      const titleText = titleElement ? titleElement.textContent.trim() : '';
-      handleChange('title',titleText)
-      
-      const contentElement = doc.querySelector('p');
-      const contentText = contentElement ? contentElement.textContent?.trim():'';
-      handleChange('content',contentText)
+      handleChange('title', titleElement)
 
+      const contentElement = doc.querySelector('p');
+      handleChange('content', contentElement)
+
+      // console.log(titleElement, contentElement)
     },
-    
   })
 
   return (
-    <div>
-      {/* <MenuBar editor={editor}/> */}
-      <EditorContent slotBefore={<MenuBar/>} editor={editor} />
-    </div>
+    <>
+{editor && (
+  <BubbleMenu className="bubble-menu" tippyOptions={{ duration: 100 }} editor={editor}>
+    <button
+      onClick={(event) => {
+        event.preventDefault();
+        editor.chain().focus().toggleBold().run();
+      }}
+      className={editor.isActive('bold') ? 'is-active' : ''}
+    >
+      Bold
+    </button>
+    <button
+      onClick={(event) => {
+        event.preventDefault();
+        editor.chain().focus().toggleItalic().run();
+      }}
+      className={editor.isActive('italic') ? 'is-active' : ''}
+    >
+      Italic
+    </button>
+    <button
+      onClick={(event) => {
+        event.preventDefault();
+        editor.chain().focus().toggleStrike().run();
+      }}
+      className={editor.isActive('strike') ? 'is-active' : ''}
+    >
+      Strike
+    </button>
+  </BubbleMenu>
+)}
+
+{editor && (
+  <FloatingMenu className="floating-menu" tippyOptions={{ duration: 100 }} editor={editor}>
+    <button
+      onClick={(event) => {
+
+        // these preventdefault prevents these clicks from triggerig submission
+        event.preventDefault();
+        editor.chain().focus().toggleHeading({ level: 1 }).run();
+      }}
+      className={editor.isActive('heading', { level: 1 }) ? 'is-active' : ''}
+    >
+      H1
+    </button>
+    <button
+      onClick={(event) => {
+        event.preventDefault();
+        editor.chain().focus().toggleHeading({ level: 2 }).run();
+      }}
+      className={editor.isActive('heading', { level: 2 }) ? 'is-active' : ''}
+    >
+      H2
+    </button>
+    <button
+      onClick={(event) => {
+        event.preventDefault();
+        editor.chain().focus().toggleBulletList().run();
+      }}
+      className={editor.isActive('bulletList') ? 'is-active' : ''}
+    >
+      Bullet List
+    </button>
+  </FloatingMenu>
+)}
+
+
+      <EditorContent editor={editor} />
+    </>
   )
 }
-
-export default CustomInput

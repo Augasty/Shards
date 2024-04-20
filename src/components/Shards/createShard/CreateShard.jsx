@@ -8,6 +8,7 @@ import { auth, db } from '../../../firebase';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addSingleShard, updateShardProperties } from '../ShardSlice';
+import { CustomInput } from '../InputForm/CustomInput';
 
 
 
@@ -36,11 +37,11 @@ const CreateShard = () => {
       [parentId]: [parentData.title,parentData.updatedAt]
     }]
   }
-  const handleChange = (e) => {
-    setShard({
-      ...Shard,
-      [e.target.id]: e.target.value
-    });
+  const handleChange = (id, value) => {
+    setShard(prevShard => ({
+      ...prevShard,
+      [id]: value.outerHTML, // Use 'id' as a dynamic property key
+    }));
   };
 
   const handleSubmit = async (e) => {
@@ -56,8 +57,15 @@ const CreateShard = () => {
       }
 
       // adding the created doc in firestore
-      const createdShardRef = await addDoc(collection(db, 'users', curuser.email, 'ShardList'), ShardData);
-      // adding it in redux
+      let createdShardRef
+      try{
+        console.log(ShardData)
+        createdShardRef = await addDoc(collection(db, 'users', curuser.email, 'ShardList'), ShardData);
+      }
+      catch(e){
+        console.log('error while uploading',ShardData)
+      }
+   // adding it in redux
       dispatch(addSingleShard({
         id: createdShardRef.id,
         ...ShardData
@@ -68,13 +76,20 @@ const CreateShard = () => {
       const isEmptyObject = (obj) => {
         return Object.keys(obj).length === 0;
       };
+
+
+      // if there is no parents data, just return to the home page
+      if (!parentData || isEmptyObject(parentData)) {
+
+        history('/');
+        return
+      }
       // updating the parent docs childrenShard property in firestore 
-      const ParentDocRef = doc(db, 'users', curuser.email, 'ShardList', parentId);
       try {
-        if (isEmptyObject(parentData)) {
+        console.log(parentData)
+        const ParentDocRef = doc(db, 'users', curuser.email, 'ShardList', parentId);
           const parentDocSnapshot = await getDoc(ParentDocRef);
           parentData = parentDocSnapshot.data();
-        }
 
 
         // Get the existing childrenShards array or initialize it as an empty array if it doesn't exist
@@ -95,7 +110,7 @@ const CreateShard = () => {
 
 
     } catch (e) {
-      console.error(e);
+      console.error(Shard,e);
     }
 
     history('/');
@@ -108,22 +123,9 @@ const CreateShard = () => {
           Create A New Shard
         </h5>
 
-        <input
-          type="text"
-          id="title"
-          className={styles.ShardTitleInput}
-          onChange={handleChange}
-          required
-          placeholder="Provide Shard title"
-        />
-        <textarea
-          id="content"
-          className={`${styles.customTextarea} ${styles.ShardContentTextarea}`}
-          onChange={handleChange}
-          required
-          placeholder="Shard Content"
-        ></textarea>
 
+        <CustomInput handleChange={handleChange}/>
+        
 
 
 

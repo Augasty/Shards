@@ -14,9 +14,7 @@ const ShardSummary = ({ Shard }) => {
         className={styles.ShardSummary}
       >
     <Link to={"/Shard/" + Shard.id} className={styles.LinkStyle}>
-        <p className={styles.ShardSummaryTitle}> {Shard.title}
-
-        </p>
+        <p className={styles.ShardSummaryTitle} dangerouslySetInnerHTML={{ __html: Shard.title }}/>
         <p className={styles.ShardSummaryDate}>{formattedDate}</p>
     </Link>
       </div>
