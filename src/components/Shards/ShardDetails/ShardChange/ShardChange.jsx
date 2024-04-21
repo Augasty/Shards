@@ -10,6 +10,7 @@ import { SmartTime } from '../../ShardSummary/SmartTime';
 import { updateShardProperties } from '../../ShardSlice';
 import { useDispatch } from 'react-redux';
 import { CustomInput } from '../../InputForm/CustomInput';
+import { TextEditor } from '../../InputForm/TextEditor';
 
 const ShardChange = ({ currentShard }) => {
 
@@ -64,14 +65,12 @@ const ShardChange = ({ currentShard }) => {
         className={`${styles.ShardDetails} ${styles[currentShard.ShardStatus]}`}
       >
        
-        <CustomInput 
-        title={updatedCurrentShard.title} 
-        content={updatedCurrentShard.content} handleChange={handleChange}/>
+        {/* <CustomInput 
+        content={updatedCurrentShard.content} handleChange={handleChange}/> */}
 
-        {/* <TextEditor 
-                title={updatedCurrentShard.title} 
+        <TextEditor 
         content={updatedCurrentShard.content}
-        handleChange={handleChange}/> */}
+        handleChange={handleChange}/>
         <>
           <div className={styles.ShardDetailsTop}>
 

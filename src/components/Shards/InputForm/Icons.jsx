@@ -133,6 +133,70 @@ export const RotateRight = ({ size = 16, color = "currentColor" }) => (
   </svg>
 );
 
+export const BulletList = ({ size = 16, color = "currentColor" }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke={color}
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M5 6h18  M5 14h18  M5 22h18"></path>
+    <circle cx="3" cy="6" r="1.5"></circle>
+    <circle cx="3" cy="14" r="1.5"></circle>
+    <circle cx="3" cy="22" r="1.5"></circle>
+  </svg>
+);
+
+
+export const DecreaseBulletList = ({ size = 16, color = "currentColor" }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke={color}
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M5 6h18  M14 14h18  M14 22h18"></path>
+    <circle cx="3" cy="6" r="1.5"></circle>
+    <circle cx="11" cy="14" r="1.5"></circle>
+    <circle cx="11" cy="22" r="1.5"></circle>
+
+    {/* Triangle */}
+    <polygon points="1,18 6,14 6,22" ></polygon>
+  </svg>
+);
+
+
+export const IncreaseBulletList = ({ size = 16, color = "currentColor" }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke={color}
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M5 6h18  M14 14h18  M14 22h18"></path>
+    <circle cx="3" cy="6" r="1.5"></circle>
+    <circle cx="11" cy="14" r="1.5"></circle>
+    <circle cx="11" cy="22" r="1.5"></circle>
+
+    {/* Triangle */}
+    <polygon points="6,18 1,14 1,22" ></polygon>
+  </svg>
+);
 export const X = ({ size = 16, color = "currentColor" }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"

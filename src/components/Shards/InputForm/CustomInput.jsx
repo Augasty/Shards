@@ -1,3 +1,6 @@
+// obsolete input form, not used anymore
+
+
 import {
   BubbleMenu,
   EditorContent,
@@ -6,7 +9,6 @@ import {
 } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
 import styles from './styles.module.css'
-
 
 
 

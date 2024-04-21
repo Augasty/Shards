@@ -8,7 +8,7 @@ import { auth, db } from '../../../firebase';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addSingleShard, updateShardProperties } from '../ShardSlice';
-import { CustomInput } from '../InputForm/CustomInput';
+import { TextEditor } from '../InputForm/TextEditor';
 
 
 
@@ -126,7 +126,7 @@ const CreateShard = () => {
         </h5>
 
 
-        <CustomInput handleChange={handleChange}/>
+        <TextEditor handleChange={handleChange}/>
         
 
 
