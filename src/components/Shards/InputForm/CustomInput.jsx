@@ -12,28 +12,17 @@ import styles from './styles.module.css'
 
 
 // eslint-disable-next-line react/prop-types
-export const CustomInput = ({ title = '<h1></h1>', content = '<p></p>', handleChange }) => {
+export const CustomInput = ({content = '<p></p>', handleChange }) => {
   const editor = useEditor({
     extensions: [
-      StarterKit,
+      StarterKit
 
-    ], content: `
-      ${title}
-
-      ${content}
-  `,
+    ], content,
     onUpdate({ editor }) {
       const htmlContent = editor.getHTML();
       console.log(htmlContent)
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(htmlContent, 'text/html');
-      const titleElement = doc.querySelector('h1');
-      handleChange('title', titleElement)
+      handleChange('content', htmlContent)
 
-      const contentElement = doc.querySelector('p');
-      handleChange('content', contentElement)
-
-      console.log(htmlContent)
     },
   })
 

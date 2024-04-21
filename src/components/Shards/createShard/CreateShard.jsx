@@ -38,10 +38,10 @@ const CreateShard = () => {
     }]
   }
   const handleChange = (id, value) => {
-    console.log([id],value.outerHTML)
+    console.log([id],value)
     setShard(prevShard => ({
       ...prevShard,
-      [id]: value.outerHTML, // Use 'id' as a dynamic property key
+      [id]: value, // Use 'id' as a dynamic property key
     }));
   };
 
@@ -50,6 +50,7 @@ const CreateShard = () => {
     try {
       const ShardData = {
         ...Shard,
+        title:String(new Date().toISOString()),
         updatedAt: new Date().toISOString(),
         parentShards: parentShards,
         childrenShards: [],

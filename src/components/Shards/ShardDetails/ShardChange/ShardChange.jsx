@@ -27,10 +27,10 @@ const ShardChange = ({ currentShard }) => {
 
   const handleChange = (id,value) => {
     // console.log('change triggered')
-    console.log([id],value.outerHTML)
+    console.log([id],value)
     setupdatedCurrentShard((prevData) => ({
       ...prevData,
-      [id]: value.outerHTML,
+      [id]: value,
     }));
   };
 
@@ -67,6 +67,11 @@ const ShardChange = ({ currentShard }) => {
         <CustomInput 
         title={updatedCurrentShard.title} 
         content={updatedCurrentShard.content} handleChange={handleChange}/>
+
+        {/* <TextEditor 
+                title={updatedCurrentShard.title} 
+        content={updatedCurrentShard.content}
+        handleChange={handleChange}/> */}
         <>
           <div className={styles.ShardDetailsTop}>
 
