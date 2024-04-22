@@ -6,42 +6,16 @@ body {
 }
 
 .container {
-  display: flex;
+  display: grid;
   align-items: center;
   justify-content: center;
-  width: 99vw;
-
+  width: 100vw;
+  align-items: center;
+  justify-content: center;
   background-color: var(--bg-color);
 }
 
 
-.ShardDetails {
-  background-color: var(--background-color);
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
-  align-items: center;
-  justify-content: center;
-}
-
-.Pending {
-  background-color: var(--pending)
-}
-
-.Finished {
-  background-color: var(--finished)
-}
-
-
-
-.Active {
-  background-color: var(--active)
-}
-
-.Overdue {
-  background-color: var(--overdue)
-}
 
 /* Shard Details Title Style */
 .ShardDetailsTitle {

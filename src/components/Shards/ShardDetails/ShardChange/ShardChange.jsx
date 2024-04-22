@@ -9,7 +9,6 @@ import btn from '../../../../sharedStyles/MultipleButtonStyle.module.css';
 import { SmartTime } from '../../ShardSummary/SmartTime';
 import { updateShardProperties } from '../../ShardSlice';
 import { useDispatch } from 'react-redux';
-import { CustomInput } from '../../InputForm/CustomInput';
 import { TextEditor } from '../../InputForm/TextEditor';
 
 const ShardChange = ({ currentShard }) => {
@@ -60,13 +59,7 @@ const ShardChange = ({ currentShard }) => {
   const smartCreatedAt = SmartTime(currentShard.createdAt);
   return (
     <div className={styles.container}>
-      <form
-        onSubmit={handleSubmit}
-        className={`${styles.ShardDetails} ${styles[currentShard.ShardStatus]}`}
-      >
-       
-        {/* <CustomInput 
-        content={updatedCurrentShard.content} handleChange={handleChange}/> */}
+
 
         <TextEditor 
         content={updatedCurrentShard.content}
@@ -95,10 +88,10 @@ const ShardChange = ({ currentShard }) => {
           </span>
 
           <span>
-            <button type="submit">Submit</button>
+            <button onClick={handleSubmit}>Submit</button>
           </span>
         </div>
-      </form>
+
     </div>
   );
 };

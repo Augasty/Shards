@@ -1,37 +1,19 @@
 import { useCallback } from "react";
 // => Tiptap packages
 import { useEditor, EditorContent } from "@tiptap/react";
-// import Document from "@tiptap/extension-document";
-// import Paragraph from "@tiptap/extension-paragraph";
-// import Text from "@tiptap/extension-text";
-// import Link from "@tiptap/extension-link";
-// import Bold from "@tiptap/extension-bold";
 import Underline from "@tiptap/extension-underline";
-// import Italic from "@tiptap/extension-italic";
-// import Strike from "@tiptap/extension-strike";
-// import Code from "@tiptap/extension-code";
-// import History from "@tiptap/extension-history";
 // Custom
 import * as Icons from "./Icons";
 import StarterKit from "@tiptap/starter-kit";
+import styles from './styles.module.css'
+
 
 // eslint-disable-next-line react/prop-types
 export function TextEditor({ content = '<p></p>', handleChange }) {
     const editor = useEditor({
         extensions: [
             StarterKit,
-            // Document,
-            // History,
-            // Paragraph,
-            // Text,
-            // Link.configure({
-            //     openOnClick: false
-            // }),
-            // Bold,
             Underline,
-            // Italic,
-            // Strike,
-            // Code
         ],
         content,
         onUpdate({ editor }) {
@@ -72,12 +54,11 @@ export function TextEditor({ content = '<p></p>', handleChange }) {
     if (!editor) {
         return null;
     }
-
     return (
-        <div className="editor">
-            <div className="menu">
+        <div className={styles.editor}>
+            <div className={styles.menu}>
                 <button
-                    className="menu-button"
+                    className={`${styles["menu-button"]} ${!editor.can().undo() && styles["disabled"]}`}
                     onClick={(event) => {
                         event.preventDefault(); editor.chain().focus().undo().run()
                     }}
@@ -86,7 +67,7 @@ export function TextEditor({ content = '<p></p>', handleChange }) {
                     <Icons.RotateLeft />
                 </button>
                 <button
-                    className="menu-button"
+                    className={`${styles["menu-button"]} ${!editor.can().redo() && styles["disabled"]}`}
                     onClick={(event) => {
                         event.preventDefault(); editor.chain().focus().redo().run()
                     }}
@@ -96,25 +77,25 @@ export function TextEditor({ content = '<p></p>', handleChange }) {
                 </button>
 
                 <button
-                    className={`menu-button ${editor.isActive("bold") ? "is-active" : ""}`}
+                    className={`${styles["menu-button"]} ${editor.isActive("bold") && styles["is-active"]}`}
                     onClick={toggleBold}
                 >
                     <Icons.Bold />
                 </button>
                 <button
-                    className={`menu-button ${editor.isActive("underline") ? "is-active" : ""}`}
+                    className={`${styles["menu-button"]} ${editor.isActive("underline") && styles["is-active"]}`}
                     onClick={toggleUnderline}
                 >
                     <Icons.Underline />
                 </button>
                 <button
-                    className={`menu-button ${editor.isActive("italic") ? "is-active" : ""}`}
+                    className={`${styles["menu-button"]} ${editor.isActive("italic") && styles["is-active"]}`}
                     onClick={toggleItalic}
                 >
                     <Icons.Italic />
                 </button>
                 <button
-                    className={`menu-button ${editor.isActive("strike") ? "is-active" : ""}`}
+                    className={`${styles["menu-button"]} ${editor.isActive("strike") && styles["is-active"]}`}
                     onClick={toggleStrike}
                 >
                     <Icons.Strikethrough />
@@ -125,23 +106,23 @@ export function TextEditor({ content = '<p></p>', handleChange }) {
                         event.preventDefault();
                         editor.chain().focus().toggleBulletList().run();
                     }}
-                    className={editor.isActive('bulletList') ? 'is-active' : ''}
+                    className={`${styles["menu-button"]} ${editor.isActive('bulletList') && styles["is-active"]}`}
                 >
                     {editor.isActive('bulletList') ?  <Icons.DecreaseBulletList/> : <Icons.BulletList /> }
                 </button>
 
                 <button
                     onClick={(event) => {
-
                         event.preventDefault();
                         editor.chain().focus().sinkListItem('listItem').run()
                     }}
                     disabled={!editor.can().sinkListItem('listItem')}
+                    className={styles["menu-button"]}
                 >
                     <Icons.IncreaseBulletList />
                 </button>
                 <button
-                    className={`menu-button ${editor.isActive("code") ? "is-active" : ""}`}
+                    className={`${styles["menu-button"]} ${editor.isActive("code") && styles["is-active"]}`}
                     onClick={toggleCode}
                 >
                     <Icons.Code />
@@ -149,11 +130,7 @@ export function TextEditor({ content = '<p></p>', handleChange }) {
 
             </div>
 
-
-
-            <EditorContent editor={editor} />
-
-
+            <EditorContent className={styles.EditorContent} editor={editor} />
         </div>
     );
 }
