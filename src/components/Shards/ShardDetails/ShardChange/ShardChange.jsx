@@ -10,9 +10,10 @@ import { SmartTime } from '../../ShardSummary/SmartTime';
 import { updateShardProperties } from '../../ShardSlice';
 import { useDispatch } from 'react-redux';
 import { TextEditor } from '../../InputForm/TextEditor';
+import { extractHeader } from '../../InputForm/ExtractHeader';
 
 const ShardChange = ({ currentShard }) => {
-
+  console.log(currentShard)
   const curuser = auth.currentUser
 
   const dispatch = useDispatch();
@@ -27,7 +28,7 @@ const ShardChange = ({ currentShard }) => {
 
   const handleChange = (id,value) => {
     // console.log('change triggered')
-    console.log([id],value)
+    // console.log([id],value)
     setupdatedCurrentShard((prevData) => ({
       ...prevData,
       [id]: value,
@@ -38,17 +39,20 @@ const ShardChange = ({ currentShard }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // console.log('submission triggered');
-    await updateDoc(currentShardRef, {
+    const ChangedShard = {
       ...updatedCurrentShard,
+      title: extractHeader(updatedCurrentShard.content),
       updatedAt: new Date().toISOString(),
-    });
+    }
+    await updateDoc(currentShardRef, ChangedShard);
+    console.log(updatedCurrentShard,extractHeader(updatedCurrentShard.content))
 
 
 
     // update in redux
     dispatch(updateShardProperties({
       id: currentShard.id, 
-      updatedProperties: { ...updatedCurrentShard }
+      updatedProperties: {...ChangedShard}
   }))
 
 
@@ -60,11 +64,10 @@ const ShardChange = ({ currentShard }) => {
   return (
     <div className={styles.container}>
 
-
+<>
         <TextEditor 
         content={updatedCurrentShard.content}
         handleChange={handleChange}/>
-        <>
           <div className={styles.ShardDetailsTop}>
 
             <span>
@@ -73,8 +76,6 @@ const ShardChange = ({ currentShard }) => {
             </span>
           </div>
 
-          <br />
-        </>
 
 
         <div className={btn.MultipleButtonStyle}>
@@ -91,6 +92,9 @@ const ShardChange = ({ currentShard }) => {
             <button onClick={handleSubmit}>Submit</button>
           </span>
         </div>
+        </>
+
+        
 
     </div>
   );

@@ -66,23 +66,16 @@ code {
   font-size: 14px;
 }
 
-.app {
-  width: 720px;
-  margin: 0 auto 48px;
-}
-
-.editor {
-  position: relative;
-
-  width: 100%;
-  margin-bottom: 48px;
-  display: grid;
-}
-.EditorContent > div{
-  height: 55vh;
-  width: 95vw;
+.EditorContent {
+  width: 98vw;
   
-  padding: 2vh;
+}
+
+
+.EditorContent > div{
+  height: 65vh;
+  width:98vw;
+  padding: 1vh;
 
   overflow-x: auto;
   overflow-y: auto;

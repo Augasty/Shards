@@ -6,23 +6,19 @@ import { SmartTime } from "./SmartTime";
 
 const ShardSummary = ({ Shard }) => {
 
-  const formattedDate = SmartTime(Shard.createdAt);
+  const formattedDate = SmartTime(Shard.updatedAt);
 
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(Shard.title, 'text/html');
-  const strippedTitle = doc.body.textContent;
+
 
   return (
-    <div
-        className={styles.ShardSummary}
-      >
-    <Link to={"/Shard/" + Shard.id} className={styles.LinkStyle}>
-        <p className={styles.ShardSummaryTitle}> {strippedTitle}
+    <div className={styles.ShardSummary}>
+      <Link to={"/Shard/" + Shard.id} className={styles.LinkStyle}>
+        <p className={styles.ShardSummaryTitle}> {Shard.title}
 
         </p>
         <p className={styles.ShardSummaryDate}>{formattedDate}</p>
-    </Link>
-      </div>
+      </Link>
+    </div>
   );
 };
 

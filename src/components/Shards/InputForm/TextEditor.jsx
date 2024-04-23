@@ -19,6 +19,7 @@ export function TextEditor({ content = '<p></p>', handleChange }) {
         onUpdate({ editor }) {
             const htmlContent = editor.getHTML();
             console.log(htmlContent)
+            console.log(editor.getText())
             handleChange('content', htmlContent)
 
         },
@@ -55,7 +56,7 @@ export function TextEditor({ content = '<p></p>', handleChange }) {
         return null;
     }
     return (
-        <div className={styles.editor}>
+        <>
             <div className={styles.menu}>
                 <button
                     className={`${styles["menu-button"]} ${!editor.can().undo() && styles["disabled"]}`}
@@ -131,6 +132,6 @@ export function TextEditor({ content = '<p></p>', handleChange }) {
             </div>
 
             <EditorContent className={styles.EditorContent} editor={editor} />
-        </div>
+        </>
     );
 }
