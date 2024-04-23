@@ -11,13 +11,17 @@ import { updateShardProperties } from '../../ShardSlice';
 import { useDispatch } from 'react-redux';
 import { TextEditor } from '../../InputForm/TextEditor';
 import { extractHeader } from '../../InputForm/ExtractHeader';
+import RelatedShards from './RelatedShards';
 
 const ShardChange = ({ currentShard }) => {
-  console.log(currentShard)
+
+  
+    // console.log('this data is passed to shardchange',currentShard)
+  
   const curuser = auth.currentUser
 
   const dispatch = useDispatch();
-  
+
   const currentShardRef = doc(db, 'users', curuser?.email, 'ShardList', currentShard?.id);
   const [updatedCurrentShard, setupdatedCurrentShard] = useState({
     ...currentShard,
@@ -26,7 +30,7 @@ const ShardChange = ({ currentShard }) => {
 
 
 
-  const handleChange = (id,value) => {
+  const handleChange = (id, value) => {
     // console.log('change triggered')
     // console.log([id],value)
     setupdatedCurrentShard((prevData) => ({
@@ -45,15 +49,15 @@ const ShardChange = ({ currentShard }) => {
       updatedAt: new Date().toISOString(),
     }
     await updateDoc(currentShardRef, ChangedShard);
-    console.log(updatedCurrentShard,extractHeader(updatedCurrentShard.content))
+    console.log(updatedCurrentShard, extractHeader(updatedCurrentShard.content))
 
 
 
     // update in redux
     dispatch(updateShardProperties({
-      id: currentShard.id, 
-      updatedProperties: {...ChangedShard}
-  }))
+      id: currentShard.id,
+      updatedProperties: { ...ChangedShard }
+    }))
 
 
     history(-1); //back to the previous screen
@@ -64,17 +68,15 @@ const ShardChange = ({ currentShard }) => {
   return (
     <div className={styles.container}>
 
-<>
-        <TextEditor 
-        content={updatedCurrentShard.content}
-        handleChange={handleChange}/>
-          <div className={styles.ShardDetailsTop}>
+      <div className={styles.textContainers}>
+        <TextEditor
+          content={updatedCurrentShard.content}
+          handleChange={handleChange} />
 
-            <span>
-              <span>Created at: </span>
-              {smartCreatedAt}
-            </span>
-          </div>
+          <span>
+            <span>Created at: </span>
+            {smartCreatedAt}
+          </span>
 
 
 
@@ -83,7 +85,7 @@ const ShardChange = ({ currentShard }) => {
 
           <span>
             <button >
-              <Link to={`/Shard/${currentShard.id}/create-shard`} style={{textDecoration:'none'}}>
+              <Link to={`/Shard/${currentShard.id}/create-shard`} style={{ textDecoration: 'none' }}>
                 New Shard
               </Link></button>
           </span>
@@ -92,9 +94,15 @@ const ShardChange = ({ currentShard }) => {
             <button onClick={handleSubmit}>Submit</button>
           </span>
         </div>
-        </>
+      </div>
+      <div>
 
-        
+      <RelatedShards ShardsMapObject={currentShard.parentsShards} title={'parents'}/>
+      <RelatedShards ShardsMapObject={currentShard.childrenShards} title={'children'}/>
+      
+      </div>
+
+
 
     </div>
   );

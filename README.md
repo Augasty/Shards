@@ -12,4 +12,4 @@ while opening a doc in changedoc (either by clicking it, or by refreshing), if i
 Need to implement a trigger for logging in an account from multiple place and updating same data from there concurrently.
 
 
-while changing a doc, update all it's parents and children.
+while changing a doc, update all it's parents and children. (use writebatch)

@@ -7,6 +7,7 @@ body {
 
 .container {
   display: grid;
+  grid-template-columns: auto auto;
   align-items: center;
   justify-content: center;
   width: 100vw;
@@ -18,32 +19,14 @@ body {
 
 
 
-/* Shard Details Title Style */
-.ShardDetailsTitle {
-  color: var(--card-text);
-  ;
-  margin-bottom: 15px;
+.textContainers{
+  width: 80vw; 
 }
+/* Related shard fields */
 
-/* Shard Details Text Style */
-.ShardDetailsText {
-  color: var(--card-text);
-  margin-bottom: 10px;
-  white-space: pre-wrap;
-}
-
-
-
-.ShardDetailsTop {
-  display: flex;
-  justify-content: space-between;
-  color: var(--card-text);
-  font-size: 2.5vh;
-}
-
-.ShardDetailsTop span {
-  margin-bottom: 10px;
-  color: var(--card-text);
+.ShardList{
+  width: 20vw;
+  background-color: red;
 }
 
 
@@ -52,23 +35,3 @@ body {
 
 
 
-
-
-/* extra field for Shardchange */
-
-.inputField {
-  width: 100%;
-  background-color: inherit;
-  height: 4vh;
-  border: var(--input-box-border);
-  margin-top: 1vh;
-  margin-bottom: 1vh;
-
-}
-
-.ShardContentTextarea {
-  min-height: 100px;
-  resize: vertical;
-  font-family: inherit;
-  border-radius: 1vh;
-}

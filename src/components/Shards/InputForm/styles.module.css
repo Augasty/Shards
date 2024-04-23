@@ -67,14 +67,14 @@ code {
 }
 
 .EditorContent {
-  width: 98vw;
+  width: 80vw;
   
 }
 
 
 .EditorContent > div{
-  height: 65vh;
-  width:98vw;
+  height: 70vh;
+  width:80vw;
   padding: 1vh;
 
   overflow-x: auto;
@@ -141,10 +141,6 @@ code {
   padding: 8px;
 }
 
-.ProseMirror-focused {
-  border-color: var(--color-black);
-  outline: none;
-}
 
 .ProseMirror > * + * {
   margin-top: 16px;

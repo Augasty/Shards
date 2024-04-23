@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addSingleShard, updateShardProperties } from '../ShardSlice';
 import { TextEditor } from '../InputForm/TextEditor';
 import { extractHeader } from '../InputForm/ExtractHeader';
+import { isEmptyObject } from '../ShardDetails/ShardDetails';
 
 
 
@@ -79,10 +80,6 @@ const CreateShard = () => {
 
 
 
-      const isEmptyObject = (obj) => {
-        return Object.keys(obj).length === 0;
-      };
-
 
       // if there is no parents data, just return to the home page
       if (!parentData || isEmptyObject(parentData)) {
@@ -100,7 +97,11 @@ const CreateShard = () => {
 
         // Get the existing childrenShards array or initialize it as an empty array if it doesn't exist
         const existingChildrenShards = parentData.childrenShards || [];
-        const updatedChildrenShards = existingChildrenShards.concat({ [createdShardRef.id]: [ShardData.title, ShardData.updatedAt] });
+        const updatedChildrenShards = existingChildrenShards.concat({
+          id: createdShardRef.id,
+          title: ShardData.title, 
+          updatedAt: ShardData.updatedAt
+        });
         await updateDoc(ParentDocRef, {
           childrenShards: updatedChildrenShards
         });

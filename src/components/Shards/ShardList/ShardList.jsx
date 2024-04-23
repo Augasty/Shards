@@ -20,7 +20,7 @@ const ShardList = () => {
 
   let filteredReduxShards = reduxShards?.filter(shard => shard.showInHome == true)
 
-  console.log(filteredReduxShards)
+  // console.log(filteredReduxShards)
 
   return (
 
