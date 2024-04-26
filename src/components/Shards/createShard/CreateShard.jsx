@@ -33,19 +33,14 @@ const CreateShard = () => {
     return null;
   });
 
-  let parentShards = [];
+  let parentShards = {};
   if (parentId) {
-    parentShards = [{
-      id: parentId,
-      title: parentData.title,
-      updatedAt: parentData.updatedAt
-    }]
+    parentShards = {[parentId]: [parentData.title,parentData.updatedAt]}
   }
-  const handleChange = (id, value) => {
-    console.log([id], value)
+  const handleChange = (value) => {
     setShard(prevShard => ({
       ...prevShard,
-      [id]: value, // Use 'id' as a dynamic property key
+      content: value, // Use 'id' as a dynamic property key
     }));
   };
 
@@ -55,12 +50,12 @@ const CreateShard = () => {
       const ShardData = {
         ...Shard,
 
-        title: extractHeader(Shard.content),
+        title: extractHeader(Shard),
         updatedAt: new Date().toISOString(),
-        parentShards: parentShards,
-        childrenShards: [],
-        showInHome: parentShards.length == 0
-
+        parentShards: parentShards, //adding the parent's data in the current shard
+        childrenShards: {},
+        // showInHome: parentShards.length == 0
+        showInHome: isEmptyObject(parentShards)
       }
 
       // adding the created doc in firestore
@@ -96,19 +91,15 @@ const CreateShard = () => {
 
 
         // Get the existing childrenShards array or initialize it as an empty array if it doesn't exist
-        const existingChildrenShards = parentData.childrenShards || [];
-        const updatedChildrenShards = existingChildrenShards.concat({
-          id: createdShardRef.id,
-          title: ShardData.title, 
-          updatedAt: ShardData.updatedAt
-        });
+        parentData.childrenShards[createdShardRef.id] = [ShardData.title, ShardData.updatedAt]
+        // console.log(parentData.childrenShards)
         await updateDoc(ParentDocRef, {
-          childrenShards: updatedChildrenShards
+          childrenShards: parentData.childrenShards
         });
 
         dispatch(updateShardProperties({
           id: parentId, // Assuming parentId is the ID of the parent shard
-          updatedProperties: { childrenShards: updatedChildrenShards }
+          updatedProperties: { childrenShards: parentData.childrenShards }
         }));
       } catch (error) {
         console.error("Error updating parent document's children property: ", error);

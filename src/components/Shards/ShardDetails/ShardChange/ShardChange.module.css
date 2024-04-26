@@ -26,7 +26,12 @@ body {
 
 .ShardList{
   width: 20vw;
-  background-color: red;
+  display: grid;
+}
+
+.ShardArea {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto auto ;
 }
 
 

@@ -13,6 +13,7 @@ export const fetchHeadShards = async (curuser, dispatch) => {
 
     if (!ShardSnapShot.empty) {
       const ShardsData = ShardSnapShot.docs.map((doc) => {
+
         return {
           id: doc.id,
           ...doc.data(),

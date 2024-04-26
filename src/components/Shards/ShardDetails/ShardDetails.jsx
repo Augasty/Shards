@@ -31,7 +31,7 @@ const ShardDetails = () => {
 
       // fetch the current shard from redux
       const foundCurrentObj = reduxShards.find(obj => obj.id == curShardId.id) || {}
-      console.log('redux fetch initial',foundCurrentObj)
+      // console.log('redux fetch initial',foundCurrentObj)
 
       // if it's not in redux, (nested shard), fetch it from firestore and also store it in redux
       if(isEmptyObject(foundCurrentObj)){
@@ -52,13 +52,13 @@ const ShardDetails = () => {
             id: currentShard.id,
             ...currentShard.data(),
           }));
-          console.log('single data fetched from firestore',currentShard.data(),currentShard.id)
+          // console.log('single data fetched from firestore',currentShard.data(),currentShard.id)
         }
         fetchCurrentShard()
       }else{
         
         setcurrentShard(foundCurrentObj)
-        console.log('fetched from redux')
+        // console.log('fetched from redux')
       }
 
 
@@ -66,14 +66,14 @@ const ShardDetails = () => {
 
     }
 
-  }, [curShardId, setcurrentShard, curuser?.email, reduxShards])
+  }, [curShardId, setcurrentShard, curuser?.email, reduxShards, dispatch])
 
 
   // to make sure that we don't pass {} in the shardchange
 
 
   if (isEmptyObject(currentShard)) {
-    return <>loading</>
+    return <></>
   }
 
 

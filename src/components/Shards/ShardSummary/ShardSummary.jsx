@@ -4,16 +4,16 @@ import styles from "./ShardSummary.module.css";
 import { Link } from "react-router-dom";
 import { SmartTime } from "./SmartTime";
 
-const ShardSummary = ({ Shard }) => {
+const ShardSummary = ({ ShardId,ShardTitle,ShardUpdatedAt }) => {
 
-  const formattedDate = SmartTime(Shard.updatedAt);
+  const formattedDate = SmartTime(ShardUpdatedAt);
 
 
 
   return (
     <div className={styles.ShardSummary}>
-      <Link to={"/Shard/" + Shard.id} className={styles.LinkStyle}>
-        <p className={styles.ShardSummaryTitle}> {Shard.title}
+      <Link to={"/Shard/" + ShardId} className={styles.LinkStyle}>
+        <p className={styles.ShardSummaryTitle}> {ShardTitle}
 
         </p>
         <p className={styles.ShardSummaryDate}>{formattedDate}</p>

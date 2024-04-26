@@ -13,3 +13,7 @@ Need to implement a trigger for logging in an account from multiple place and up
 
 
 while changing a doc, update all it's parents and children. (use writebatch)
+
+1. When we log in, we only fetch the shards which are required to be displayed in the home screen.
+2. When we create a doc, we check if it needs any parent, and add it in the parentShards if required (and also add the current doc in the parent's childrenShard).
+3. When we view a shard, we fetch the list of it's childrenshards and parentshards, and display them. We can use them to hop between parent and child shards.

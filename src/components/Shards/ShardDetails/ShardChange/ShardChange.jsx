@@ -12,12 +12,14 @@ import { useDispatch } from 'react-redux';
 import { TextEditor } from '../../InputForm/TextEditor';
 import { extractHeader } from '../../InputForm/ExtractHeader';
 import RelatedShards from './RelatedShards';
+import { MassUpdateShards } from './MassUpdateShards';
 
 const ShardChange = ({ currentShard }) => {
 
   
     // console.log('this data is passed to shardchange',currentShard)
   
+  const initialTitle = extractHeader(currentShard)
   const curuser = auth.currentUser
 
   const dispatch = useDispatch();
@@ -30,12 +32,12 @@ const ShardChange = ({ currentShard }) => {
 
 
 
-  const handleChange = (id, value) => {
+  const handleChange = (value) => {
     // console.log('change triggered')
     // console.log([id],value)
     setupdatedCurrentShard((prevData) => ({
       ...prevData,
-      [id]: value,
+      content: value,
     }));
   };
 
@@ -45,20 +47,34 @@ const ShardChange = ({ currentShard }) => {
     // console.log('submission triggered');
     const ChangedShard = {
       ...updatedCurrentShard,
-      title: extractHeader(updatedCurrentShard.content),
+      title: extractHeader(updatedCurrentShard),
       updatedAt: new Date().toISOString(),
     }
     await updateDoc(currentShardRef, ChangedShard);
-    console.log(updatedCurrentShard, extractHeader(updatedCurrentShard.content))
-
-
-
+    
+    
+    
     // update in redux
     dispatch(updateShardProperties({
       id: currentShard.id,
       updatedProperties: { ...ChangedShard }
     }))
+    
+    
+    // console.log(initialTitle,extractHeader(updatedCurrentShard),initialTitle==extractHeader(updatedCurrentShard))
+    const updatedHeader = extractHeader(updatedCurrentShard)
+    if (initialTitle == updatedHeader){
+      history(-1);
+      return
+    }else{
+      console.log(updatedCurrentShard.parentShards)
+    }
 
+    // if initial title and final title are different:
+    MassUpdateShards('parentShards',updatedCurrentShard.childrenShards,curuser.email,currentShard.id,updatedHeader,dispatch)
+    MassUpdateShards('childrenShards',updatedCurrentShard.parentShards,curuser.email,currentShard.id,updatedHeader,dispatch)
+    // 1. update the heading in the relatedshard of all it's parent and children shards in firestore
+    // 2. do the same in redux 
 
     history(-1); //back to the previous screen
   };
@@ -97,8 +113,8 @@ const ShardChange = ({ currentShard }) => {
       </div>
       <div>
 
-      <RelatedShards ShardsMapObject={currentShard.parentsShards} title={'parents'}/>
-      <RelatedShards ShardsMapObject={currentShard.childrenShards} title={'children'}/>
+      <RelatedShards ShardsMapObject={currentShard.parentShards} title={'parents'}/>
+      <RelatedShards  ShardsMapObject={currentShard.childrenShards} title={'children'}/>
       
       </div>
 
