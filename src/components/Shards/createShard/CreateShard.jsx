@@ -2,8 +2,8 @@
 import { useState } from 'react';
 import styles from './styles.module.css';
 
-import btn from '../../../sharedStyles/BigButtonStyle.module.css';
-import { addDoc, collection, doc, getDoc, updateDoc } from 'firebase/firestore';
+import btn from '../../../sharedStyles/MultipleButtonStyle.module.css';
+import { addDoc, collection, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import { auth, db } from '../../../firebase';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,6 +11,7 @@ import { addSingleShard, updateShardProperties } from '../ShardSlice';
 import { TextEditor } from '../InputForm/TextEditor';
 import { extractHeader } from '../InputForm/ExtractHeader';
 import { isEmptyObject } from '../ShardDetails/ShardDetails';
+import { updateSingleShardIdName } from '../ShardIdNameSlice';
 
 
 
@@ -35,7 +36,7 @@ const CreateShard = () => {
 
   let parentShards = {};
   if (parentId) {
-    parentShards = {[parentId]: [parentData.title,parentData.updatedAt]}
+    parentShards = { [parentId]: [parentData.title, parentData.updatedAt] }
   }
   const handleChange = (value) => {
     setShard(prevShard => ({
@@ -46,11 +47,12 @@ const CreateShard = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const shardTitle = extractHeader(Shard)
     try {
       const ShardData = {
         ...Shard,
 
-        title: extractHeader(Shard),
+        title: shardTitle,
         updatedAt: new Date().toISOString(),
         parentShards: parentShards, //adding the parent's data in the current shard
         childrenShards: {},
@@ -61,7 +63,7 @@ const CreateShard = () => {
       // adding the created doc in firestore
       let createdShardRef
       try {
-        console.log(ShardData)
+        // console.log(ShardData)
         createdShardRef = await addDoc(collection(db, 'users', curuser.email, 'ShardList'), ShardData);
       }
       catch (e) {
@@ -76,15 +78,34 @@ const CreateShard = () => {
 
 
 
+      // add data for the dropdown's map
+      const userDocRef = doc(db, 'users', curuser?.email);
+      try {
+        await setDoc(userDocRef, { ShardIdName: {
+          [createdShardRef.id]: shardTitle
+        } }, { merge: true });
+      } catch (error) {
+        console.error('Error storing map:', error);
+      }
+      try{
+        console.log('trigger')
+        dispatch(updateSingleShardIdName({[createdShardRef.id]: shardTitle}))
+      }catch(e){
+        console.log('error while uploading shardidname in redux',e)
+      }
+
+
+
+
       // if there is no parents data, just return to the home page
       if (!parentData || isEmptyObject(parentData)) {
 
-        history('/');
+        history(`/Shard/${createdShardRef.id}`);
         return
       }
       // updating the parent docs childrenShard property in firestore 
       try {
-        console.log(parentData)
+        // console.log(parentData)
         const ParentDocRef = doc(db, 'users', curuser.email, 'ShardList', parentId);
         const parentDocSnapshot = await getDoc(ParentDocRef);
         parentData = parentDocSnapshot.data();
@@ -101,17 +122,19 @@ const CreateShard = () => {
           id: parentId, // Assuming parentId is the ID of the parent shard
           updatedProperties: { childrenShards: parentData.childrenShards }
         }));
+
+
+
+
       } catch (error) {
         console.error("Error updating parent document's children property: ", error);
       }
-
+      history(`/Shard/${createdShardRef.id}`);
 
 
     } catch (e) {
       console.error(Shard, e);
     }
-
-    history('/');
   };
 
   return (
@@ -127,13 +150,17 @@ const CreateShard = () => {
 
 
 
-        <div className={styles.ShardDetailsTop}>
-          <button className={btn.BigButton} onClick={() => history(-1)}>
+        <div className={btn.MultipleButtonStyle}>
+          <span>
+          <button onClick={() => history(-1)}>
             Back
           </button>
-          <button className={btn.BigButton} type="submit">
+          </span>
+          <span>
+          <button  type="submit">
             Create
           </button>
+          </span>
         </div>
       </form>
     </div>

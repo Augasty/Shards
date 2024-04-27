@@ -18,10 +18,7 @@ export function TextEditor({ content = '<p></p>', handleChange }) {
         content,
         onUpdate({ editor }) {
             const htmlContent = editor.getHTML();
-            // console.log(htmlContent)
-            // console.log(editor.getText())
             handleChange(htmlContent)
-
         },
     });
 

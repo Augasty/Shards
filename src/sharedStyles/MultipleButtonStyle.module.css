@@ -16,8 +16,6 @@
   .MultipleButtonStyle button {
     padding: 6px;
     margin: 6px;
-    background-color: var(--button-color);
-    color: var(--button-text);
     font-weight: bold;
     border-radius: 1vh;
     cursor: pointer;

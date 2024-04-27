@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react';
 import { auth, db } from '../../../../firebase';
-import { doc, updateDoc } from 'firebase/firestore';
+import { doc, setDoc, updateDoc } from 'firebase/firestore';
 import { Link, useNavigate } from 'react-router-dom';
 import styles from './ShardChange.module.css';
 
@@ -16,9 +16,9 @@ import { MassUpdateShards } from './MassUpdateShards';
 
 const ShardChange = ({ currentShard }) => {
 
-  
-    // console.log('this data is passed to shardchange',currentShard)
-  
+
+  // console.log('this data is passed to shardchange',currentShard)
+
   const initialTitle = extractHeader(currentShard)
   const curuser = auth.currentUser
 
@@ -51,28 +51,42 @@ const ShardChange = ({ currentShard }) => {
       updatedAt: new Date().toISOString(),
     }
     await updateDoc(currentShardRef, ChangedShard);
-    
-    
-    
+
+
+
     // update in redux
     dispatch(updateShardProperties({
       id: currentShard.id,
       updatedProperties: { ...ChangedShard }
     }))
-    
-    
-    // console.log(initialTitle,extractHeader(updatedCurrentShard),initialTitle==extractHeader(updatedCurrentShard))
+
+
+
+    // if title is not changed, further calculation is not needed.
     const updatedHeader = extractHeader(updatedCurrentShard)
-    if (initialTitle == updatedHeader){
+    if (initialTitle == updatedHeader) {
       history(-1);
       return
-    }else{
+    } else {
       console.log(updatedCurrentShard.parentShards)
     }
 
+
+    // update data for the dropdown's map
+    const userDocRef = doc(db, 'users', curuser?.email);
+    try {
+      await setDoc(userDocRef, {
+        ShardIdName: {
+          [currentShard.id]: updatedHeader
+        }
+      }, { merge: true });
+    } catch (error) {
+      console.error('Error storing map:', error);
+    }
+
     // if initial title and final title are different:
-    MassUpdateShards('parentShards',updatedCurrentShard.childrenShards,curuser.email,currentShard.id,updatedHeader,dispatch)
-    MassUpdateShards('childrenShards',updatedCurrentShard.parentShards,curuser.email,currentShard.id,updatedHeader,dispatch)
+    MassUpdateShards('parentShards', updatedCurrentShard.childrenShards, curuser.email, currentShard.id, updatedHeader, dispatch)
+    MassUpdateShards('childrenShards', updatedCurrentShard.parentShards, curuser.email, currentShard.id, updatedHeader, dispatch)
     // 1. update the heading in the relatedshard of all it's parent and children shards in firestore
     // 2. do the same in redux 
 
@@ -89,10 +103,10 @@ const ShardChange = ({ currentShard }) => {
           content={updatedCurrentShard.content}
           handleChange={handleChange} />
 
-          <span>
-            <span>Created at: </span>
-            {smartCreatedAt}
-          </span>
+        <span>
+          <span>Created at: </span>
+          {smartCreatedAt}
+        </span>
 
 
 
@@ -113,9 +127,10 @@ const ShardChange = ({ currentShard }) => {
       </div>
       <div>
 
-      <RelatedShards ShardsMapObject={currentShard.parentShards} title={'parents'}/>
-      <RelatedShards  ShardsMapObject={currentShard.childrenShards} title={'children'}/>
-      
+        <div className={styles.relatedShardsContainer}>
+          <RelatedShards ShardsMapObject={currentShard.parentShards} title={'parents'} />
+          <RelatedShards ShardsMapObject={currentShard.childrenShards} title={'children'} />
+        </div>
       </div>
 
 

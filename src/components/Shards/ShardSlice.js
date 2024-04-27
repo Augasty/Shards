@@ -37,8 +37,6 @@ const ShardSlice = createSlice({
                     ...action.payload.updatedRelationshipData
 
                 }
-
-                console.log(state[shardIndex][action.payload.relationship])
             }
         }
     

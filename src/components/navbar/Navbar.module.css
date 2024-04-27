@@ -3,9 +3,9 @@
 .navbar {
   position: sticky;
   background: var(--navbar-bg-color);
-  padding:0vh 2vh;
+  padding:1vh 1vh;
 
-  height: 7vh;
+  height: 8vh;
   margin-top: 0;
   display: flex;
   justify-content: space-between;
