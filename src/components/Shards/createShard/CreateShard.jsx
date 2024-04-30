@@ -11,7 +11,7 @@ import { addSingleShard, updateShardProperties } from '../ShardSlice';
 import { TextEditor } from '../InputForm/TextEditor';
 import { extractHeader } from '../InputForm/ExtractHeader';
 import { isEmptyObject } from '../ShardDetails/ShardDetails';
-import { updateSingleShardIdName } from '../ShardIdNameSlice';
+import {  updateSingleShardIdName } from '../ShardIdNameSlice';
 
 
 
@@ -88,8 +88,8 @@ const CreateShard = () => {
         console.error('Error storing map:', error);
       }
       try{
-        console.log('trigger')
-        dispatch(updateSingleShardIdName({[createdShardRef.id]: shardTitle}))
+        // console.log('trigger')
+        dispatch(updateSingleShardIdName({id:[createdShardRef.id],title: shardTitle}))
       }catch(e){
         console.log('error while uploading shardidname in redux',e)
       }

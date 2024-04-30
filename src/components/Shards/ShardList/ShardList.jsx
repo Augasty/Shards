@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-import { useEffect } from 'react';
 import ShardSummary from '../ShardSummary/ShardSummary';
 
 import styles from './ShardList.module.css';
@@ -12,8 +11,6 @@ const ShardList = () => {
 
 
 
-
-  useEffect(() => { })
   let reduxShards = useSelector((state) => state.Shards) || [];
 
   // filter the shards with no parent for home screen, because we will also add every shard that we visit or create, in redux, to avoid repeatedly querying the same data.

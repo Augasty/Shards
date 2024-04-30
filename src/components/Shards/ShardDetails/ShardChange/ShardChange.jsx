@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { auth, db } from '../../../../firebase';
 import { doc, setDoc, updateDoc } from 'firebase/firestore';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styles from './ShardChange.module.css';
 
 import btn from '../../../../sharedStyles/MultipleButtonStyle.module.css';
@@ -13,6 +13,7 @@ import { TextEditor } from '../../InputForm/TextEditor';
 import { extractHeader } from '../../InputForm/ExtractHeader';
 import RelatedShards from './RelatedShards';
 import { MassUpdateShards } from './MassUpdateShards';
+import { updateSingleShardIdName } from '../../ShardIdNameSlice';
 
 const ShardChange = ({ currentShard }) => {
 
@@ -28,7 +29,6 @@ const ShardChange = ({ currentShard }) => {
   const [updatedCurrentShard, setupdatedCurrentShard] = useState({
     ...currentShard,
   });
-  const history = useNavigate();
 
 
 
@@ -65,12 +65,9 @@ const ShardChange = ({ currentShard }) => {
     // if title is not changed, further calculation is not needed.
     const updatedHeader = extractHeader(updatedCurrentShard)
     if (initialTitle == updatedHeader) {
-      history(-1);
+ 
       return
-    } else {
-      console.log(updatedCurrentShard.parentShards)
     }
-
 
     // update data for the dropdown's map
     const userDocRef = doc(db, 'users', curuser?.email);
@@ -80,6 +77,11 @@ const ShardChange = ({ currentShard }) => {
           [currentShard.id]: updatedHeader
         }
       }, { merge: true });
+
+
+      
+      dispatch(updateSingleShardIdName({id:[currentShard.id],title:updatedHeader}))
+      
     } catch (error) {
       console.error('Error storing map:', error);
     }
@@ -90,7 +92,6 @@ const ShardChange = ({ currentShard }) => {
     // 1. update the heading in the relatedshard of all it's parent and children shards in firestore
     // 2. do the same in redux 
 
-    history(-1); //back to the previous screen
   };
 
 

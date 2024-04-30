@@ -10,8 +10,9 @@ const ShardIdNameSlice = createSlice({
       return action.payload;
     },
     updateSingleShardIdName: (state, action) => {
-      const { id, name } = action.payload;
-      state[id] = name;
+      const { id, title } = action.payload;
+      state[id] = title;
+      console.log(id,title)
 
       // console.log('single update list',action.payload)
     }
