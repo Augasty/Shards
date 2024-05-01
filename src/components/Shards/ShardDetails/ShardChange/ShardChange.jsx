@@ -13,7 +13,7 @@ import { TextEditor } from '../../InputForm/TextEditor';
 import { extractHeader } from '../../InputForm/ExtractHeader';
 import RelatedShards from './RelatedShards';
 import { MassUpdateShards } from './MassUpdateShards';
-import { updateSingleShardIdName } from '../../ShardIdNameSlice';
+import { updateSingleShardIdTitle } from '../../ShardIdTitleSlice';
 
 const ShardChange = ({ currentShard }) => {
 
@@ -73,14 +73,14 @@ const ShardChange = ({ currentShard }) => {
     const userDocRef = doc(db, 'users', curuser?.email);
     try {
       await setDoc(userDocRef, {
-        ShardIdName: {
+        ShardIdTitle: {
           [currentShard.id]: updatedHeader
         }
       }, { merge: true });
 
 
       
-      dispatch(updateSingleShardIdName({id:[currentShard.id],title:updatedHeader}))
+      dispatch(updateSingleShardIdTitle({id:[currentShard.id],title:updatedHeader}))
       
     } catch (error) {
       console.error('Error storing map:', error);

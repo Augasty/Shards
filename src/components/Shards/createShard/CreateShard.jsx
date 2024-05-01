@@ -11,7 +11,7 @@ import { addSingleShard, updateShardProperties } from '../ShardSlice';
 import { TextEditor } from '../InputForm/TextEditor';
 import { extractHeader } from '../InputForm/ExtractHeader';
 import { isEmptyObject } from '../ShardDetails/ShardDetails';
-import {  updateSingleShardIdName } from '../ShardIdNameSlice';
+import {  updateSingleShardIdTitle } from '../ShardIdTitleSlice';
 
 
 
@@ -81,7 +81,7 @@ const CreateShard = () => {
       // add data for the dropdown's map
       const userDocRef = doc(db, 'users', curuser?.email);
       try {
-        await setDoc(userDocRef, { ShardIdName: {
+        await setDoc(userDocRef, { ShardIdTitle: {
           [createdShardRef.id]: shardTitle
         } }, { merge: true });
       } catch (error) {
@@ -89,9 +89,9 @@ const CreateShard = () => {
       }
       try{
         // console.log('trigger')
-        dispatch(updateSingleShardIdName({id:[createdShardRef.id],title: shardTitle}))
+        dispatch(updateSingleShardIdTitle({id:[createdShardRef.id],title: shardTitle}))
       }catch(e){
-        console.log('error while uploading shardidname in redux',e)
+        console.log('error while uploading shardIdTitle in redux',e)
       }
 
 

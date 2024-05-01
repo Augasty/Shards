@@ -1,11 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit'
 import ShardReducer from '../components/Shards/ShardSlice'
-import ShardIdNameReducer from '../components/Shards/ShardIdNameSlice'
+import ShardIdTitleReducer from '../components/Shards/ShardIdTitleSlice'
 
 const store = configureStore({
     reducer:{
         Shards:ShardReducer,
-        ShardIdName:ShardIdNameReducer
+        ShardIdTitle:ShardIdTitleReducer
     }
 })
 

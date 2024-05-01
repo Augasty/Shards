@@ -1,0 +1,95 @@
+
+
+/* AddRelationshipModal */
+.modalBackground {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2
+  }
+  
+  .modalContent {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    width: 400px;
+    height: 300px
+  }
+
+  .modalList{
+    height: 25vh;
+    overflow-y: scroll;
+
+    list-style-type: none; /* Remove bullet points */
+    padding: 0;
+  }
+  
+  .listItem {
+    margin-bottom: 8px;
+  }
+  
+  .title {
+    background-color: #f0f0f0;
+    padding: 8px;
+    border-radius: 4px;
+    /* Add additional styling for the title */
+  }
+
+
+  
+  .closeButton {
+    background-color: #007bff; /* Blue color for the button */
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .closeButton:hover {
+    background-color: #0056b3; /* Darker shade of blue on hover */
+  }
+
+  .modalBackground {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modalContent {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .list {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .listItem {
+    margin-bottom: 8px;
+  }
+  
+  .title {
+    background-color: #f0f0f0; /* Background color for title div */
+    padding: 8px;
+    border-radius: 4px;
+  }
+  

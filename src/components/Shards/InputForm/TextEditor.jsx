@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 // => Tiptap packages
 import { useEditor, EditorContent } from "@tiptap/react";
 import Underline from "@tiptap/extension-underline";
@@ -20,6 +20,7 @@ export function TextEditor({ content = '<p></p>', handleChange }) {
             const htmlContent = editor.getHTML();
             handleChange(htmlContent)
         },
+        autofocus:'end'
     });
 
     const toggleBold = useCallback((event) => {
@@ -49,9 +50,16 @@ export function TextEditor({ content = '<p></p>', handleChange }) {
 
 
 
+    // this, along with the autofocus:'end' makes the autofocus work
+    useEffect(() => {
+        if (editor) {
+            editor.commands.focus();
+        }
+    }, [editor]);
     if (!editor) {
         return null;
     }
+    
     return (
         <>
             <div className={styles.menu}>

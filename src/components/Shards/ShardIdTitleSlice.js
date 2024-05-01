@@ -2,14 +2,14 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {};
 
-const ShardIdNameSlice = createSlice({
-  name: 'ShardIdName',
+const ShardIdTitleSlice = createSlice({
+  name: 'ShardIdTitle',
   initialState,
   reducers: {
-    setAllShardIdNames: (state, action) => {
+    setAllShardIdTitles: (state, action) => {
       return action.payload;
     },
-    updateSingleShardIdName: (state, action) => {
+    updateSingleShardIdTitle: (state, action) => {
       const { id, title } = action.payload;
       state[id] = title;
       console.log(id,title)
@@ -19,5 +19,5 @@ const ShardIdNameSlice = createSlice({
   }
 });
 
-export const { setAllShardIdNames, updateSingleShardIdName } = ShardIdNameSlice.actions;
-export default ShardIdNameSlice.reducer;
+export const { setAllShardIdTitles, updateSingleShardIdTitle } = ShardIdTitleSlice.actions;
+export default ShardIdTitleSlice.reducer;

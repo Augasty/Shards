@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import ShardSummary from '../../ShardSummary/ShardSummary';
 import styles from './ShardChange.module.css';
-import AddRelationshipModal from './AddRelationshipModal';
+import AddRelationshipModal from '../../ShardModal/AddRelationshipModal';
 
 
 
@@ -11,8 +11,8 @@ import AddRelationshipModal from './AddRelationshipModal';
 const RelatedShards = React.memo(({ ShardsMapObject, title }) => {
 
   const [isOpen, setIsOpen] = useState(false)
-  // here pass the ShardIdName, and render thr dropdown 
-  // with the keys that are in the ShardIdName but not in the ShardsMapObject
+  // here pass the ShardIdTitle, and render thr dropdown 
+  // with the keys that are in the ShardIdTitle but not in the ShardsMapObject
 
   // console.log(title,ShardsMapObject)
 
@@ -34,7 +34,9 @@ const RelatedShards = React.memo(({ ShardsMapObject, title }) => {
     </div>
 
 
-        {isOpen && <AddRelationshipModal setIsOpen={setIsOpen}/>}
+        {isOpen && <AddRelationshipModal ShardsMapObject={ShardsMapObject}
+        title={title}
+        setIsOpen={setIsOpen}/>}
     </>
 
   );
