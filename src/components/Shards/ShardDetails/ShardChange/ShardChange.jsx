@@ -65,7 +65,6 @@ const ShardChange = ({ currentShard }) => {
     // if title is not changed, further calculation is not needed.
     const updatedHeader = extractHeader(updatedCurrentShard)
     if (initialTitle == updatedHeader) {
- 
       return
     }
 

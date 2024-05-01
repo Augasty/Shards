@@ -3,7 +3,7 @@ import { useState } from 'react';
 import styles from './styles.module.css';
 
 import btn from '../../../sharedStyles/MultipleButtonStyle.module.css';
-import { addDoc, collection, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
+import { addDoc, collection, doc, getDoc, setDoc } from 'firebase/firestore';
 import { auth, db } from '../../../firebase';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -36,7 +36,7 @@ const CreateShard = () => {
 
   let parentShards = {};
   if (parentId) {
-    parentShards = { [parentId]: [parentData.title, parentData.updatedAt] }
+    parentShards = { [parentId]: parentData.title }
   }
   const handleChange = (value) => {
     setShard(prevShard => ({
@@ -88,8 +88,8 @@ const CreateShard = () => {
         console.error('Error storing map:', error);
       }
       try{
-        // console.log('trigger')
-        dispatch(updateSingleShardIdTitle({id:[createdShardRef.id],title: shardTitle}))
+        // update the ShardIdTitle wala redux
+        dispatch(updateSingleShardIdTitle({id:createdShardRef.id,title: shardTitle}))
       }catch(e){
         console.log('error while uploading shardIdTitle in redux',e)
       }
@@ -109,15 +109,19 @@ const CreateShard = () => {
         const ParentDocRef = doc(db, 'users', curuser.email, 'ShardList', parentId);
         const parentDocSnapshot = await getDoc(ParentDocRef);
         parentData = parentDocSnapshot.data();
+        
 
 
-        // Get the existing childrenShards array or initialize it as an empty array if it doesn't exist
-        parentData.childrenShards[createdShardRef.id] = [ShardData.title, ShardData.updatedAt]
-        // console.log(parentData.childrenShards)
-        await updateDoc(ParentDocRef, {
-          childrenShards: parentData.childrenShards
-        });
 
+        // get the parents childrenshards array, and then adding the current shard in it
+        await setDoc(ParentDocRef, {
+          childrenShards: {[createdShardRef.id] : ShardData.title}
+        }, { merge: true });
+        
+        
+        // adding in redux
+        parentData.childrenShards[createdShardRef.id] = ShardData.title
+        
         dispatch(updateShardProperties({
           id: parentId, // Assuming parentId is the ID of the parent shard
           updatedProperties: { childrenShards: parentData.childrenShards }

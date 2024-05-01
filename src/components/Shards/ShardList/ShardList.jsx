@@ -27,7 +27,7 @@ const ShardList = () => {
       <div className={styles.ShardArea}>
         {filteredReduxShards?.map((Shard) => (
           <ShardSummary ShardId={Shard.id} ShardTitle={Shard.title} 
-          ShardUpdatedAt={Shard.updatedAt} key={Shard.id} />
+           key={Shard.id} />
         ))}
       </div>
     </div>

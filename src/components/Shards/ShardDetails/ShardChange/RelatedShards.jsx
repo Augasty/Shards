@@ -27,8 +27,8 @@ const RelatedShards = React.memo(({ ShardsMapObject, title }) => {
       </div>
 
       <div className={styles.ShardArea}>
-        {Object.entries(ShardsMapObject || {}).map(([id, shard]) => (
-          <ShardSummary ShardId={id} ShardTitle={shard[0]} ShardUpdatedAt={shard[1]} key={id} />
+        {Object.entries(ShardsMapObject || {}).map(([id, shardTitle]) => (
+          <ShardSummary ShardId={id} ShardTitle={shardTitle} key={id} />
         ))}
       </div>
     </div>

@@ -12,8 +12,6 @@ const ShardIdTitleSlice = createSlice({
     updateSingleShardIdTitle: (state, action) => {
       const { id, title } = action.payload;
       state[id] = title;
-      console.log(id,title)
-
       // console.log('single update list',action.payload)
     }
   }
