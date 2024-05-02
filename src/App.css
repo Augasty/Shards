@@ -18,7 +18,7 @@
 
   --button-color: #EEF5FF;
   --button-text: #000000;
-  --button-hover-color: #92b7f4;
+  --button-hover-color:#ff768c;
   --button-active-color: var(--highlight-color);
   --button-radius: 2vh;
 
@@ -43,13 +43,9 @@
 
   --card-text: #000000;
   /* card and story colors */
-  --finished: #2dfd4c;
-  --pending: #fff477;
-  --active: #8fcdff;
-  --overdue: #ff9595;
+  --card-color:#fc97a8;
 
-  --sent: #4285F4;
-  --received: #4285F4;
+
 
   /* font-size */
   --card-title: 2.2vh;
@@ -57,9 +53,7 @@
   --card-date:1.9vh;
 
   --notification-text: rgb(255, 255, 255);
-  /* notification colors */
-  --notification-color: rgb(46, 46, 46);
-  --notification-box-border: 0.2px solid #000000;
+
 
   /* theme toggle color */
   --theme-toggle: #ffffff;
@@ -83,8 +77,6 @@
 
   --div-border: 0px solid #000000;
   --bg-color: #1a1a1a;
-
-  --notification-box-border: 0.2px solid #717171;
 
   --storyContainer-background-color: #333333;
   --story-text-color: #e7e7e7;

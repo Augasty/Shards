@@ -13,4 +13,6 @@ In the RelatedShards pass the ShardIdName, and render thr dropdown with the keys
 
 Let a shard get deleted only if it doesn't have any childrenShard. (Having parent won't be an issue, because parentShards will always be linked to some other shards)
 
+A button to extract the texts as pdf, or doc file. Add h1
+
 A screen to display all the shards (using the ShardIdName), a button in navbar. 

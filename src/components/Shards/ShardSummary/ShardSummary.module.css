@@ -11,7 +11,7 @@
   user-select: none;
   display: grid;
   
-  background-color: var(--active);
+  background-color: var(--card-color);
 
 }
 

@@ -8,7 +8,7 @@ import AddRelationshipModal from '../../ShardModal/AddRelationshipModal';
 
 
 // eslint-disable-next-line no-unused-vars, react/display-name
-const RelatedShards = React.memo(({ ShardsMapObject, title }) => {
+const RelatedShards = React.memo(({ ShardsMapObject, shardRelationship }) => {
 
   const [isOpen, setIsOpen] = useState(false)
   // here pass the ShardIdTitle, and render thr dropdown 
@@ -20,7 +20,7 @@ const RelatedShards = React.memo(({ ShardsMapObject, title }) => {
     <>
     <div className={styles.ShardList}>
       <div className={styles.columnHeader}>
-        {title}
+        {shardRelationship}
         <button className={styles.columnHeaderButton} onClick={()=>setIsOpen(true)}>
           Add
         </button>
@@ -35,7 +35,7 @@ const RelatedShards = React.memo(({ ShardsMapObject, title }) => {
 
 
         {isOpen && <AddRelationshipModal ShardsMapObject={ShardsMapObject}
-        title={title}
+        shardRelationship={shardRelationship}
         setIsOpen={setIsOpen}/>}
     </>
 

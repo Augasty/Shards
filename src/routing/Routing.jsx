@@ -7,7 +7,7 @@ import ShardDetails from '../components/Shards/ShardDetails/ShardDetails';
 import CreateShard from '../components/Shards/createShard/CreateShard';
 import { auth } from '../firebase';
 import ShardList from '../components/Shards/ShardList/ShardList';
-import SignedOutHomePage from '../components/Shards/SignedOutHomePage';
+import SignedOutHomePage from '../components/SignedOutHomePage';
 
 import { useAuthState } from 'react-firebase-hooks/auth';
 

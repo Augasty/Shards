@@ -17,9 +17,7 @@ import { updateSingleShardIdTitle } from '../../ShardIdTitleSlice';
 
 const ShardChange = ({ currentShard }) => {
 
-
-  // console.log('this data is passed to shardchange',currentShard)
-
+  // console.log(currentShard)
   const initialTitle = extractHeader(currentShard)
   const curuser = auth.currentUser
 
@@ -94,7 +92,9 @@ const ShardChange = ({ currentShard }) => {
   };
 
 
-  const smartCreatedAt = SmartTime(currentShard.createdAt);
+  const smartUpdatedAt = SmartTime(currentShard.updatedAt);
+
+  
   return (
     <div className={styles.container}>
 
@@ -104,8 +104,8 @@ const ShardChange = ({ currentShard }) => {
           handleChange={handleChange} />
 
         <span>
-          <span>Created at: </span>
-          {smartCreatedAt}
+          <span>UpdatedAt at: </span>
+          {smartUpdatedAt}
         </span>
 
 
@@ -114,10 +114,11 @@ const ShardChange = ({ currentShard }) => {
 
 
           <span>
-            <button >
               <Link to={`/Shard/${currentShard.id}/create-shard`} style={{ textDecoration: 'none' }}>
+            <button >
                 New Shard
-              </Link></button>
+              </button>
+              </Link>
           </span>
 
           <span>
@@ -128,8 +129,8 @@ const ShardChange = ({ currentShard }) => {
       <div>
 
         <div className={styles.relatedShardsContainer}>
-          <RelatedShards ShardsMapObject={currentShard.parentShards} title={'parents'} />
-          <RelatedShards ShardsMapObject={currentShard.childrenShards} title={'children'} />
+          <RelatedShards ShardsMapObject={currentShard.parentShards} shardRelationship={'parents'} />
+          <RelatedShards ShardsMapObject={currentShard.childrenShards} shardRelationship={'children'} />
         </div>
       </div>
 

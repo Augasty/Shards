@@ -1,7 +1,7 @@
 import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../firebase";
-import { setShardsFromFireBase } from "./ShardSlice";
-import { setAllShardIdTitles } from "./ShardIdTitleSlice";
+import { setShardsFromFireBase } from "../Shards/ShardSlice";
+import { setAllShardIdTitles } from "../Shards/ShardIdTitleSlice";
 
 
 export const fetchHeadShards = async (curuser, dispatch) => {
