@@ -1,7 +1,7 @@
 import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../firebase";
-import { setShardsFromFireBase } from "./ShardSlice";
-import { setAllShardIdNames } from "./ShardIdNameSlice";
+import { setShardsFromFireBase } from "../Shards/ShardSlice";
+import { setAllShardIdTitles } from "../Shards/ShardIdTitleSlice";
 
 
 export const fetchHeadShards = async (curuser, dispatch) => {
@@ -33,15 +33,15 @@ export const fetchHeadShards = async (curuser, dispatch) => {
   }
 
 
-  // fetch shardidname
+  // fetch shardIdTitle
   try{
     const userDocSnapshot = (await getDoc(doc(db, 'users', curuser?.email))).data()
     try{
-      dispatch(setAllShardIdNames(userDocSnapshot.ShardIdName))
+      dispatch(setAllShardIdTitles(userDocSnapshot.ShardIdTitle))
     }catch(e){
-      console.log('error while uploading shardidname in redux',e)
+      console.log('error while uploading shardIdTitle in redux',e)
     }
   }catch(e){
-    console.error("error fetching shardidname",e)
+    console.error("error fetching shardIdTitle",e)
   }
 }

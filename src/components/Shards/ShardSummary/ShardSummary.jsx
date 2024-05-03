@@ -2,11 +2,9 @@
 
 import styles from "./ShardSummary.module.css";
 import { Link } from "react-router-dom";
-import { SmartTime } from "./SmartTime";
 
-const ShardSummary = ({ ShardId,ShardTitle,ShardUpdatedAt }) => {
+const ShardSummary = ({ ShardId,ShardTitle }) => {
 
-  const formattedDate = SmartTime(ShardUpdatedAt);
 
 
 
@@ -16,7 +14,6 @@ const ShardSummary = ({ ShardId,ShardTitle,ShardUpdatedAt }) => {
         <p className={styles.ShardSummaryTitle}> {ShardTitle}
 
         </p>
-        <p className={styles.ShardSummaryDate}>{formattedDate}</p>
       </Link>
     </div>
   );

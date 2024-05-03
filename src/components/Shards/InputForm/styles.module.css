@@ -1,23 +1,10 @@
 :root {
-  --color-pink: #ee415f;
-  --color-green: #58ce97;
-  --color-orange: #fc7d4a;
-  --color-red: #d14758;
-  --color-pale-pink: #ef6e85;
-  --color-coral: #f3907e;
-  --color-peach: #ecb38d;
-  --color-aqua: #a0ded0;
-  --color-pale-aqua: #c0ebe1;
-  --color-lightest-blue: #f8fcff;
-  --color-blue: #4c88e9;
-  --color-black: #242e39;
   --color-gray-1: #3b424b;
   --color-gray-2: #68707d;
   --color-gray-3: #949fab;
   --color-gray-4: #c7cdd4;
   --color-gray-5: #edf1f6;
   --color-gray-6: #f7f9fb;
-  --color-white: #fff;
 }
 
 html {
@@ -28,21 +15,6 @@ html {
 *:before,
 *:after {
   box-sizing: inherit;
-}
-
-body {
-  color: var(--color-black);
-
-  font-size: 16px;
-  line-height: 1.5;
-
-  font-family: sans-serif;
-  font-size: 16px;
-  line-height: 1.6;
-}
-
-a {
-  color: var(--color-pink);
 }
 
 p {
@@ -56,47 +28,68 @@ p + p {
 kbd,
 code {
   padding: 4px;
-
   border-radius: 4px;
-  background-color: var(--color-gray-6);
+  background-color: var(--color-gray-5);
   color: var(--color-gray-1);
-
-  box-decoration-break: clone;
-
   font-size: 14px;
 }
 
-.EditorContent {
-  width: 80vw;
-  
-}
-
-
-.EditorContent > div{
+.EditorContent > div {
   height: 70vh;
-  width:80vw;
+  width: 80vw;
   padding: 1vh;
-
   overflow-x: auto;
   overflow-y: auto;
 }
-.menu {
-  top: 2px;
-  left: 2px;
 
+.EditorContent > div:focus {
+  outline: none;
+}
+
+.menuContainer {
+  display: flex;
+  justify-content: space-between;
+}
+.menu {
   display: flex;
   align-items: center;
   gap: 8px;
-
-  width: calc(100% - 4px);
   height: 40px;
   margin: 0;
   padding: 0 8px;
-
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
   border-bottom: 1px solid var(--color-gray-5);
   background-color: var(--color-white);
   color: var(--color-gray-2);
 }
 
+/* menu buttons */
+
+/* Styles for the menu button */
+.menu-button {
+  /* Add your button styles here */
+  background-color: var(--button-color);
+  color: var(--button-text);
+  border-radius: 1vh;
+  border: 0px solid #cccccc;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.menu-button:hover {
+  background-color: var(--button-hover-color);
+}
+
+/* Styles for the active state */
+.is-active {
+  /* Add your active styles here */
+  background-color: var(--button-active-color);
+
+  color: var(--button-alt-text);
+}
+
+/* Additional styles for disabled state */
+.disabled {
+  /* Add your disabled styles here */
+  opacity: 0.5; /* Example opacity for disabled state */
+  cursor: not-allowed; /* Example cursor for disabled state */
+}

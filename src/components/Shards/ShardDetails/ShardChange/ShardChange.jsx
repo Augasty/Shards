@@ -13,13 +13,11 @@ import { TextEditor } from '../../InputForm/TextEditor';
 import { extractHeader } from '../../InputForm/ExtractHeader';
 import RelatedShards from './RelatedShards';
 import { MassUpdateShards } from './MassUpdateShards';
-import { updateSingleShardIdName } from '../../ShardIdNameSlice';
+import { updateSingleShardIdTitle } from '../../ShardIdTitleSlice';
 
 const ShardChange = ({ currentShard }) => {
 
-
-  // console.log('this data is passed to shardchange',currentShard)
-
+  // console.log(currentShard)
   const initialTitle = extractHeader(currentShard)
   const curuser = auth.currentUser
 
@@ -65,7 +63,6 @@ const ShardChange = ({ currentShard }) => {
     // if title is not changed, further calculation is not needed.
     const updatedHeader = extractHeader(updatedCurrentShard)
     if (initialTitle == updatedHeader) {
- 
       return
     }
 
@@ -73,14 +70,14 @@ const ShardChange = ({ currentShard }) => {
     const userDocRef = doc(db, 'users', curuser?.email);
     try {
       await setDoc(userDocRef, {
-        ShardIdName: {
+        ShardIdTitle: {
           [currentShard.id]: updatedHeader
         }
       }, { merge: true });
 
 
       
-      dispatch(updateSingleShardIdName({id:[currentShard.id],title:updatedHeader}))
+      dispatch(updateSingleShardIdTitle({id:[currentShard.id],title:updatedHeader}))
       
     } catch (error) {
       console.error('Error storing map:', error);
@@ -95,7 +92,9 @@ const ShardChange = ({ currentShard }) => {
   };
 
 
-  const smartCreatedAt = SmartTime(currentShard.createdAt);
+  const smartUpdatedAt = SmartTime(currentShard.updatedAt);
+
+  
   return (
     <div className={styles.container}>
 
@@ -105,8 +104,8 @@ const ShardChange = ({ currentShard }) => {
           handleChange={handleChange} />
 
         <span>
-          <span>Created at: </span>
-          {smartCreatedAt}
+          <span>UpdatedAt at: </span>
+          {smartUpdatedAt}
         </span>
 
 
@@ -115,22 +114,23 @@ const ShardChange = ({ currentShard }) => {
 
 
           <span>
-            <button >
               <Link to={`/Shard/${currentShard.id}/create-shard`} style={{ textDecoration: 'none' }}>
+            <button >
                 New Shard
-              </Link></button>
+              </button>
+              </Link>
           </span>
 
           <span>
-            <button onClick={handleSubmit}>Submit</button>
+            <button onClick={handleSubmit}>Update</button>
           </span>
         </div>
       </div>
       <div>
 
         <div className={styles.relatedShardsContainer}>
-          <RelatedShards ShardsMapObject={currentShard.parentShards} title={'parents'} />
-          <RelatedShards ShardsMapObject={currentShard.childrenShards} title={'children'} />
+          <RelatedShards ShardsMapObject={currentShard.parentShards} shardRelationship={'parents'} />
+          <RelatedShards ShardsMapObject={currentShard.childrenShards} shardRelationship={'children'} />
         </div>
       </div>
 
