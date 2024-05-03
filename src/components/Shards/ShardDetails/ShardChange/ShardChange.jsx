@@ -122,7 +122,7 @@ const ShardChange = ({ currentShard }) => {
           </span>
 
           <span>
-            <button onClick={handleSubmit}>Submit</button>
+            <button onClick={handleSubmit}>Update</button>
           </span>
         </div>
       </div>

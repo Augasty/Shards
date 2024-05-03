@@ -150,9 +150,7 @@ const CreateShard = () => {
 
   return (
     <div className={styles.container}>
-      <form className={styles.createShardForm} onSubmit={handleSubmit}>
-        <h5 className={styles.heading}>Create A New Shard</h5>
-
+      <div className={styles.textContainers}>
         <TextEditor handleChange={handleChange} />
 
         <div className={btn.MultipleButtonStyle}>
@@ -160,10 +158,10 @@ const CreateShard = () => {
             <button onClick={() => history(-1)}>Back</button>
           </span>
           <span>
-            <button type="submit">Create</button>
+            <button onClick={handleSubmit}>Create</button>
           </span>
         </div>
-      </form>
+      </div>
     </div>
   );
 };

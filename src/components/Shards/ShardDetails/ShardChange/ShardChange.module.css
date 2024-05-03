@@ -25,29 +25,39 @@ body {
 
 .relatedShardsContainer{
   height: 92vh;
+  display: grid;
+  justify-content: space-between;
 }
+
+
+
 
 /* Related shard fields */
 
 .ShardList{
+  padding-top: 2vh ;
   width: 18vw;
   height: 46vh;
   display: grid;
+  justify-content: space-between;
 }
 
-.columnHeader{
-  display: flex;
-  position: relative;
-  justify-content: space-between;
-  margin: 1vh;
-}
-.columnHeaderButton{
-  position: relative;
-  
-  width: min-content;
+
+
+
+.columnHeaderText{
+  margin: 0; 
+  width: 18vw;
   height: min-content;
+  font-weight: bold;
+  display: flex; 
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
 }
+
+
 .ShardArea {
+  margin: 0;
   display: grid;
   grid-template-columns: auto auto ;
   overflow-x: auto;
@@ -61,4 +71,30 @@ body {
 
 
 
+.columnHeaderButton{
+  position: relative;
+  width: 16.5vw;
+  height: min-content;
+
+  padding: 1.5vh;
+  margin: 1.5vh;
+  font-weight: bold;
+  border-radius: 1vh;
+  cursor: pointer;
+
+
+  border: var(--div-border);
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  
+}
+
+.columnHeaderButton:hover {
+
+  background-color: var(--button-hover-color)
+}
+
+.columnHeaderButton:active {
+  background-color: var(--button-active-color)
+}
 

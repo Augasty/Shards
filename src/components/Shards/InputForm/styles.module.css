@@ -17,12 +17,6 @@ html {
   box-sizing: inherit;
 }
 
-body {
-  font-size: 16px;
-  line-height: 1.5;
-}
-
-
 p {
   margin: 0;
 }
@@ -51,6 +45,11 @@ code {
 .EditorContent > div:focus {
   outline: none;
 }
+
+.menuContainer {
+  display: flex;
+  justify-content: space-between;
+}
 .menu {
   display: flex;
   align-items: center;
@@ -61,4 +60,36 @@ code {
   border-bottom: 1px solid var(--color-gray-5);
   background-color: var(--color-white);
   color: var(--color-gray-2);
+}
+
+/* menu buttons */
+
+/* Styles for the menu button */
+.menu-button {
+  /* Add your button styles here */
+  background-color: var(--button-color);
+  color: var(--button-text);
+  border-radius: 1vh;
+  border: 0px solid #cccccc;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.menu-button:hover {
+  background-color: var(--button-hover-color);
+}
+
+/* Styles for the active state */
+.is-active {
+  /* Add your active styles here */
+  background-color: var(--button-active-color);
+
+  color: var(--button-alt-text);
+}
+
+/* Additional styles for disabled state */
+.disabled {
+  /* Add your disabled styles here */
+  opacity: 0.5; /* Example opacity for disabled state */
+  cursor: not-allowed; /* Example cursor for disabled state */
 }

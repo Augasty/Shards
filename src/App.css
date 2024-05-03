@@ -1,7 +1,7 @@
 :root {
   --text-color: #4d4d4d;
   --secondary-text-color: #000000;
-  --chat-text-color: #FFFFFF;
+  --chat-text-color: #ffffff;
   --highlight-color: #3a85ff;
   --reddot-bg: red;
   --reddot-text: white;
@@ -16,10 +16,12 @@
 
   --font-family: "Courier Prime", monospace;
 
-  --button-color: #EEF5FF;
   --button-text: #000000;
-  --button-hover-color:#ff768c;
-  --button-active-color: var(--highlight-color);
+  --button-alt-text: #ffffff;
+
+  --button-color: #eef5ff;
+  --button-hover-color: #ff768c;
+  --button-active-color: #ff4564;
   --button-radius: 2vh;
 
   --big-button-border: 1px solid var(--secondary-text-color);
@@ -28,52 +30,40 @@
   --input-box-border: 0.2px solid #000000;
   --div-border: 0px solid #000000;
 
-
   --bg-color: #ffffff;
-
 
   --storyContainer-background-color: #e7e7e7;
   --story-text-color: #1d1d1d;
-
 
   --border-radius: 1vh;
 
   --bottom-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
 
-
   --card-text: #000000;
   /* card and story colors */
-  --card-color:#fc97a8;
-
-
+  --card-color: #fc97a8;
 
   /* font-size */
   --card-title: 2.2vh;
-  --card-title-weight:600;
-  --card-date:1.9vh;
+  --card-title-weight: 600;
+  --card-date: 1.9vh;
 
   --notification-text: rgb(255, 255, 255);
-
 
   /* theme toggle color */
   --theme-toggle: #ffffff;
   --theme-toggle-bg: #333333;
 }
 
-
 /* Dark Mode Styling */
-[data-theme='dark'] {
+[data-theme="dark"] {
   --text-color: #ffffff;
   --secondary-text-color: #ffffff;
   --reddot-bg: white;
   --reddot-text: black;
-  
 
   --navbar-bg-color: #1a1a1a;
   --filterbar-bg: #1a1a1a;
-
-
-
 
   --div-border: 0px solid #000000;
   --bg-color: #1a1a1a;
@@ -81,11 +71,7 @@
   --storyContainer-background-color: #333333;
   --story-text-color: #e7e7e7;
 
-
   --bottom-shadow: 0px 0px 10px rgba(233, 233, 233, 0.4);
-
-
-
 
   /* theme toggle color */
 
@@ -93,14 +79,12 @@
   --theme-toggle-bg: #ffffff;
 }
 
-
 /* to remove the margins and stuff on top of the navbar */
 body {
   margin: 0;
   min-height: 100vh;
   background-color: var(--bg-color);
 }
-
 
 /* scrollbar global styles */
 
