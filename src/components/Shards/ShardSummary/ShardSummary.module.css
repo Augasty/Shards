@@ -1,26 +1,22 @@
 .ShardSummary {
   border: var(--div-border);
-  padding: 2vh;
+  padding: 1.5vh;
   margin: 0.7vh;
   border-radius: var(--border-radius);
   font-family: var(--font-family);
-  width:8.2vw;
-  height: 14vh;
+  width: 8.2vw;
+  height: 10vh;
   text-align: left;
   color: black;
   user-select: none;
   display: grid;
-  
+
   background-color: var(--card-color);
-
 }
 
-.LinkStyle{
-  
-  height: clamp(12vh, min-content, 12vh);
+.LinkStyle {
+  height: 10vh;
 }
-
-
 
 .ShardSummaryTitle {
   font-size: var(--card-title);
@@ -29,13 +25,10 @@
   margin: 0;
   color: var(--card-text);
   margin-bottom: 1vh;
-
 }
-
-
 
 .ShardSummaryDate {
   margin: 0vh;
   font-size: var(--card-date);
-  color: var(--card-text)
+  color: var(--card-text);
 }
