@@ -24,4 +24,4 @@ while changing a doc, update all it's parents and children. (use writebatch)
 5.  Use `handlePrint` to print the current doc, it is called from ShardChange.
 
 bug:
-enter a shard (ShardChange) => reload => create new shard => go home, or create a new shard and then go home => duplicate shard in redux (error) (no error from firebase, it gets fixed when we reload)
+enter a shard (ShardChange) => reload => create new shard => go home, or create a new shard and then go home => duplicate shard in redux (error) (no error from firebase, it gets fixed when we reload) => potential solution, use {} instead of [] to store shards
