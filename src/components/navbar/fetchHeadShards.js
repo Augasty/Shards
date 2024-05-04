@@ -20,16 +20,17 @@ export const fetchHeadShards = async (curuser, dispatch) => {
     );
 
     if (!ShardSnapShot.empty) {
-      const ShardsData = ShardSnapShot.docs.map((doc) => {
-        return {
+      const ShardsData = ShardSnapShot.docs.reduce((acc, doc) => {
+        acc[doc.id] = {
           id: doc.id,
           ...doc.data(),
         };
-      });
+        return acc;
+      }, {});
 
       try {
         // console.log(ShardsData)
-        dispatch(setShardsFromFireBase([...ShardsData]));
+        dispatch(setShardsFromFireBase(ShardsData));
       } catch (e) {
         console.warn("error uploading Shards in redux", e);
       }
