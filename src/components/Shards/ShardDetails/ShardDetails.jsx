@@ -50,7 +50,7 @@ const ShardDetails = () => {
             id: curShardId.id,
           });
 
-          console.log(currentShard.data(), currentShard.id);
+          // console.log(currentShard.data(), currentShard.id);
           // adding in redux
           dispatch(
             addSingleShard({
@@ -66,7 +66,9 @@ const ShardDetails = () => {
         // console.log('fetched from redux')
       }
     }
-  }, [curShardId, setcurrentShard, curuser?.email, dispatch]);
+
+    // DON'T REMOVE REDUXSHARDS FROM HERE. THEN THE RELATED SHARDS AUTO UPDATE WILL NOT RERENDER WHEN REQUIRED
+  }, [curShardId, setcurrentShard, curuser?.email, dispatch, reduxShards]);
 
   // to make sure that we don't pass {} in the shardchange
 

@@ -14,7 +14,7 @@ const ShardSlice = createSlice({
     addSingleShard: (state, action) => {
       state[action.payload.id] = action.payload;
 
-      console.log(action.payload);
+      // console.log(action.payload);
     },
 
     updateShardProperties: (state, action) => {
@@ -28,11 +28,12 @@ const ShardSlice = createSlice({
     },
 
     updateShardsRelatedShards: (state, action) => {
-      const { id, relationship, updateShardsRelatedShards } = action.payload;
-      if (state[id]) {
-        state[id][relationship] = {
-          ...state[id][relationship],
-          ...updateShardsRelatedShards,
+      // check why this is not working
+
+      if (state[action.payload.id]) {
+        state[action.payload.id][action.payload.relationship] = {
+          ...state[action.payload.id][action.payload.relationship],
+          ...action.payload.updateShardsRelatedShards,
         };
       }
     },

@@ -11,7 +11,7 @@ const ShardList = () => {
       return acc;
     }, {});
 
-  console.log("shardList", filteredReduxShards);
+  // console.log("shardList", filteredReduxShards);
 
   return (
     <div className={styles.ShardList}>
