@@ -30,7 +30,7 @@ const ShardDetails = () => {
         Object.values(reduxShards).find((obj) => obj.id === curShardId.id) ||
         {};
 
-      console.log(foundCurrentObj);
+      // console.log(foundCurrentObj);
 
       // if it's not in redux, (nested shard), fetch it from firestore and also store it in redux
       if (isEmptyObject(foundCurrentObj)) {
@@ -44,7 +44,7 @@ const ShardDetails = () => {
         let currentShard;
         const fetchCurrentShard = async () => {
           currentShard = await getDoc(currentShardRef);
-          console.log(currentShard.data());
+          // console.log(currentShard.data());
           setcurrentShard({
             ...currentShard.data(),
             id: curShardId.id,
