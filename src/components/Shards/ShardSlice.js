@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = [];
+const initialState = {};
 
 const ShardSlice = createSlice({
   name: "Shards",
@@ -8,40 +8,33 @@ const ShardSlice = createSlice({
 
   reducers: {
     setShardsFromFireBase: (state, action) => {
-      return action.payload;
+      // Assuming action.payload is an object with ids as keys
+      return { ...action.payload };
     },
     addSingleShard: (state, action) => {
-      state.push(action.payload);
+      state[action.payload.id] = action.payload;
+
+      // console.log(action.payload);
     },
 
     updateShardProperties: (state, action) => {
-      // Find the index of the shard in the state based on its ID or any unique identifier
-      const shardIndex = state.findIndex(
-        (shard) => shard.id === action.payload.id
-      );
-      if (shardIndex !== -1) {
-        state[shardIndex] = {
-          ...state[shardIndex],
-          ...action.payload.updatedProperties,
+      const { id, updatedProperties } = action.payload;
+      if (state[id]) {
+        state[id] = {
+          ...state[id],
+          ...updatedProperties,
         };
       }
     },
 
     updateShardsRelatedShards: (state, action) => {
-      const shardIndex = state.findIndex(
-        (shard) => shard.id === action.payload.id
-      );
+      // check why this is not working
 
-      // shardIndex, is the index of the shard IN THE ARRAY, NOT IT'S ID OR ANYTHIN
-      // WE ARE JUST FINIDNG THE POSITION OF THE SHARD IN THE ARRAY (IF EXISTS)
-      if (shardIndex !== -1) {
-        console.log(JSON.stringify(state[shardIndex]));
-        state[shardIndex][action.payload.relationship] = {
-          ...state[shardIndex][action.payload.relationship],
+      if (state[action.payload.id]) {
+        state[action.payload.id][action.payload.relationship] = {
+          ...state[action.payload.id][action.payload.relationship],
           ...action.payload.updateShardsRelatedShards,
         };
-
-        // console.log(JSON.stringify(state[shardIndex]))
       }
     },
   },
