@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 import btn from "../../../../../sharedStyles/MultipleButtonStyle.module.css";
 
-import Draggable, { DraggableData, DraggableEvent } from "react-draggable";
+// import Draggable, { DraggableData, DraggableEvent } from "react-draggable";
 import React, { useState, useRef } from "react";
 
 const index = ({ currentShardId, handleSubmit, handlePrint }) => {
