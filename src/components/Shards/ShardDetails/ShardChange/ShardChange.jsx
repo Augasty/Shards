@@ -2,11 +2,7 @@
 import { useState } from "react";
 import { auth, db } from "../../../../firebase";
 import { doc, setDoc, updateDoc } from "firebase/firestore";
-import { Link } from "react-router-dom";
 import styles from "./ShardChange.module.css";
-
-import btn from "../../../../sharedStyles/MultipleButtonStyle.module.css";
-import { SmartTime } from "../../ShardSummary/SmartTime";
 import { updateShardProperties } from "../../ShardSlice";
 import { useDispatch } from "react-redux";
 import { TextEditor } from "../../InputForm/TextEditor";
@@ -15,6 +11,8 @@ import RelatedShards from "./RelatedShards";
 import { MassUpdateShards } from "./MassUpdateShards";
 import { updateSingleShardIdTitle } from "../../ShardIdTitleSlice";
 import { handlePrint } from "./handlePrint";
+import DraggableButtons from "./DraggableButtons"
+
 
 const ShardChange = ({ currentShard }) => {
   // console.log(currentShard)
@@ -112,7 +110,6 @@ const ShardChange = ({ currentShard }) => {
     // 2. do the same in redux
   };
 
-  const smartUpdatedAt = SmartTime(currentShard.updatedAt);
 
   return (
     <div className={styles.container}>
@@ -122,12 +119,11 @@ const ShardChange = ({ currentShard }) => {
           handleChange={handleChange}
         />
 
-        <span>
-          <span>UpdatedAt at: </span>
-          {smartUpdatedAt}
-        </span>
+        <DraggableButtons currentShardId={currentShard.id} 
+        handleSubmit={handleSubmit}  handlePrint={()=>handlePrint(updatedCurrentShard.content)}
+        />
 
-        <div className={btn.MultipleButtonStyle}>
+        {/* <div className={btn.MultipleButtonStyle}>
           <span>
             <Link
               to={`/Shard/${currentShard.id}/create-shard`}
@@ -146,7 +142,7 @@ const ShardChange = ({ currentShard }) => {
               Print
             </button>
           </span>
-        </div>
+        </div> */}
       </div>
       <div>
         <div className={styles.relatedShardsContainer}>

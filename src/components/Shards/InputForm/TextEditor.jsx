@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from "react";
 // => Tiptap packages
-import { useEditor, EditorContent } from "@tiptap/react";
+import { useEditor, EditorContent, BubbleMenu } from "@tiptap/react";
 import Underline from "@tiptap/extension-underline";
 // Custom
 import * as Icons from "./Icons";
@@ -71,33 +71,9 @@ export function TextEditor({ content = "<p></p>", handleChange }) {
 
   return (
     <>
+    <BubbleMenu className="bubble-menu" tippyOptions={{ duration: 100 }} editor={editor}>
+    
       <div className={styles.menuContainer}>
-        <div className={styles.menu}>
-          <button
-            className={`${styles["menu-button"]} ${
-              !editor.can().undo() && styles["disabled"]
-            }`}
-            onClick={(event) => {
-              event.preventDefault();
-              editor.chain().focus().undo().run();
-            }}
-            disabled={!editor.can().undo()}
-          >
-            <Icons.RotateLeft />
-          </button>
-          <button
-            className={`${styles["menu-button"]} ${
-              !editor.can().redo() && styles["disabled"]
-            }`}
-            onClick={(event) => {
-              event.preventDefault();
-              editor.chain().focus().redo().run();
-            }}
-            disabled={!editor.can().redo()}
-          >
-            <Icons.RotateRight />
-          </button>
-
           <button
             className={`${styles["menu-button"]} ${
               editor.isActive("bold") && styles["is-active"]
@@ -165,9 +141,7 @@ export function TextEditor({ content = "<p></p>", handleChange }) {
           >
             <Icons.Code />
           </button>
-        </div>
 
-        <div className={`${styles.menu}`}>
           <button
             onClick={(event) => {
               // these preventdefault prevents these clicks from triggerig submission
@@ -215,41 +189,10 @@ export function TextEditor({ content = "<p></p>", handleChange }) {
           >
             H3
           </button>
-          <button
-            onClick={(event) => {
-              event.preventDefault();
-              editor.chain().focus().toggleHeading({ level: 4 }).run(); // Change level to 4 for H4
-            }}
-            className={`${styles["menu-button"]} ${
-              editor.isActive("heading", { level: 4 }) && styles["is-active"]
-            }`}
-          >
-            H4
-          </button>
-          <button
-            onClick={(event) => {
-              event.preventDefault();
-              editor.chain().focus().toggleHeading({ level: 5 }).run(); // Change level to 5 for H5
-            }}
-            className={`${styles["menu-button"]} ${
-              editor.isActive("heading", { level: 5 }) && styles["is-active"]
-            }`}
-          >
-            H5
-          </button>
-          <button
-            onClick={(event) => {
-              event.preventDefault();
-              editor.chain().focus().toggleHeading({ level: 6 }).run(); // Change level to 6 for H6
-            }}
-            className={`${styles["menu-button"]} ${
-              editor.isActive("heading", { level: 6 }) && styles["is-active"]
-            }`}
-          >
-            H6
-          </button>
-        </div>
+          
+        
       </div>
+      </BubbleMenu>
       <EditorContent className={styles.EditorContent} editor={editor} />
     </>
   );

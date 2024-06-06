@@ -20,7 +20,6 @@ const Navbar = () => {
 
   const pathname = useLocation().pathname
 
-
   const [toggleChicken, setToggleChicken] = useState(true);
 
 
