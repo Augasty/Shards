@@ -1,8 +1,6 @@
 /* Shard Details Container Style */
 body {
   font-family: var(--font-family);
-
-
 }
 
 .container {
@@ -17,49 +15,40 @@ body {
   padding: 0;
 }
 
-
-
-.textContainers{
-  width: 82vw; 
+.textContainers {
+  width: 82vw;
 }
 
-.relatedShardsContainer{
+.relatedShardsContainer {
   height: 92vh;
   display: grid;
   justify-content: space-between;
 }
 
-
-
-
 /* Related shard fields */
 
-.ShardList{
-  padding-top: 2vh ;
+.ShardList {
+  padding-top: 2vh;
   width: 18vw;
   height: 46vh;
   display: grid;
   justify-content: space-between;
 }
 
-
-
-
-.columnHeaderText{
-  margin: 0; 
+.columnHeaderText {
+  margin: 0;
   width: 18vw;
   height: min-content;
   font-weight: bold;
-  display: flex; 
+  display: flex;
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically */
 }
 
-
 .ShardArea {
   margin: 0;
   display: grid;
-  grid-template-columns: auto auto ;
+  grid-template-columns: auto auto;
   overflow-x: auto;
   overflow-y: auto;
 }
@@ -69,9 +58,7 @@ body {
   /* Remove underline from links */
 }
 
-
-
-.columnHeaderButton{
+.columnHeaderButton {
   position: relative;
   width: 16.5vw;
   height: min-content;
@@ -82,19 +69,26 @@ body {
   border-radius: 1vh;
   cursor: pointer;
 
-
   border: var(--div-border);
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically */
-  
 }
 
 .columnHeaderButton:hover {
-
-  background-color: var(--button-hover-color)
+  background-color: var(--button-hover-color);
 }
 
 .columnHeaderButton:active {
-  background-color: var(--button-active-color)
+  background-color: var(--button-active-color);
 }
 
+@media print {
+  @page {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  body {
+    padding-top: 72px;
+    padding-bottom: 72px;
+  }
+}

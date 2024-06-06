@@ -11,7 +11,7 @@ const RelatedShards = React.memo(({ ShardsMapObject, shardRelationship }) => {
   // here pass the ShardIdTitle, and render thr dropdown
   // with the keys that are in the ShardIdTitle but not in the ShardsMapObject
 
-  console.log(ShardsMapObject, shardRelationship);
+  // console.log(ShardsMapObject, shardRelationship);
 
   return (
     <>
