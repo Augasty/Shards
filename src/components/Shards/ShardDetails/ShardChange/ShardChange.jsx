@@ -150,7 +150,8 @@ const ShardChange = ({ currentShard }) => {
         />
 
         <CollapsableButtons currentShardId={currentShard.id} 
-        handleSubmit={handleSubmit}  handlePrint={()=>handlePrint(updatedCurrentShard.content)}
+        handlePrint={()=>handlePrint(updatedCurrentShard.content)}
+        curshardChildren={currentShard.childrenShards}
         />
       </div>
       <div>

@@ -37,6 +37,13 @@ const ShardSlice = createSlice({
         };
       }
     },
+
+    deleteSingleShard: (state, action) => {
+      const { id } = action.payload;
+      if (state[id]) {
+        delete state[id];
+      }
+    },
   },
 });
 
@@ -45,5 +52,6 @@ export const {
   addSingleShard,
   updateShardProperties,
   updateShardsRelatedShards,
+  deleteSingleShard
 } = ShardSlice.actions;
 export default ShardSlice.reducer;

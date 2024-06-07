@@ -17,7 +17,7 @@ const index = ({ collapse, setCollapse}) => {
         And to format the texts, just drag and select the texts to open the format toolbar.
         <br/>
         <br/>
-        p.s. - While inside any note, on the top right the options opens the menu to expand the options to create subsequent shards, delete the current shard (only permissible if it doesn't have any children), and add or remove (removal is only applicable if it has at least one parent) it from the home screen.
+        p.s. - While inside any note, on the top right the options opens the menu to expand the options to create subsequent shards, delete the current shard (only permissible if it doesn't have any children).
       </div>
     </div>
   );
