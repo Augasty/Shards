@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { auth, db } from "../../../../firebase";
 import { doc, setDoc, updateDoc } from "firebase/firestore";
 import styles from "./ShardChange.module.css";
@@ -11,12 +11,15 @@ import RelatedShards from "./RelatedShards";
 import { MassUpdateShards } from "./MassUpdateShards";
 import { updateSingleShardIdTitle } from "../../ShardIdTitleSlice";
 import { handlePrint } from "./handlePrint";
-import DraggableButtons from "./DraggableButtons"
+import CollapsableButtons from "./CollapsableButtons"
 
 
 const ShardChange = ({ currentShard }) => {
-  // console.log(currentShard)
-  const initialTitle = extractHeader(currentShard);
+
+  const [initialShard, setInitialShard] = useState({
+    ...currentShard,
+  });
+  const initialTitle = extractHeader(initialShard);
   const curuser = auth.currentUser;
 
   const dispatch = useDispatch();
@@ -33,18 +36,18 @@ const ShardChange = ({ currentShard }) => {
   });
 
   const handleChange = (value) => {
-    // console.log('change triggered')
-    // console.log([id],value)
     setupdatedCurrentShard((prevData) => ({
       ...prevData,
       content: value,
     }));
+    console.log(updatedCurrentShard)
   };
 
   // Function to handle form submission
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    // console.log('submission triggered');
+  const handleSubmit = async (e = null) => {
+    if (e) {
+      e.preventDefault();
+    }
     const ChangedShard = {
       ...updatedCurrentShard,
       title: extractHeader(updatedCurrentShard),
@@ -111,38 +114,44 @@ const ShardChange = ({ currentShard }) => {
   };
 
 
+
+  const handleKeyDown = (event) => { //to enable ctrl + s
+    if (event.ctrlKey && event.key === 's') {
+      handleSubmit(event);
+    }
+  };
+
+
+  function checkStringsEquality() {
+    console.log("check",initialShard.content, updatedCurrentShard.content);
+
+    if (initialShard.content !== updatedCurrentShard.content) {
+      handleSubmit(event)
+      setInitialShard({...updatedCurrentShard})
+    } else {
+      console.log("The strings are same.",initialShard.content, updatedCurrentShard.content);
+    }
+  }
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      checkStringsEquality();
+    }, 3000);
+
+    return () => clearInterval(intervalId);
+  },[initialShard.content, updatedCurrentShard.content]);
+
   return (
-    <div className={styles.container}>
+    <div className={styles.container} onKeyDown={handleKeyDown}>
       <div className={styles.textContainers}>
         <TextEditor
           content={updatedCurrentShard.content}
           handleChange={handleChange}
         />
 
-        <DraggableButtons currentShardId={currentShard.id} 
+        <CollapsableButtons currentShardId={currentShard.id} 
         handleSubmit={handleSubmit}  handlePrint={()=>handlePrint(updatedCurrentShard.content)}
         />
-
-        {/* <div className={btn.MultipleButtonStyle}>
-          <span>
-            <Link
-              to={`/Shard/${currentShard.id}/create-shard`}
-              style={{ textDecoration: "none" }}
-            >
-              <button>New Shard</button>
-            </Link>
-          </span>
-
-          <span>
-            <button onClick={handleSubmit}>Update</button>
-          </span>
-
-          <span>
-            <button onClick={() => handlePrint(updatedCurrentShard.content)}>
-              Print
-            </button>
-          </span>
-        </div> */}
       </div>
       <div>
         <div className={styles.relatedShardsContainer}>

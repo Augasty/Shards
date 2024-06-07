@@ -2,24 +2,16 @@ import { Link } from "react-router-dom";
 
 import btn from "../../../../../sharedStyles/MultipleButtonStyle.module.css";
 
-// import Draggable, { DraggableData, DraggableEvent } from "react-draggable";
-import React, { useState, useRef } from "react";
+import React, { useState,  } from "react";
 
 const index = ({ currentShardId, handleSubmit, handlePrint }) => {
-  // const [currentRotate, setCurrentRotate] = useState(0);
-  // const isDraggingRef = useRef(false);
-  // const onDrag = () => {
-  //   isDraggingRef.current = true;
-  // };
 
-  // const onStop = () => {
-
-  //   isDraggingRef.current = false;
-  // };
 
   const [collapse, setcollapse] = useState(true);
+
+
+
   return (
-    // <Draggable onStop={onStop} onDrag={onDrag}>
     <div className={btn.MultipleButtonStyle}>
       {collapse ? (
         <span>
@@ -49,7 +41,6 @@ const index = ({ currentShardId, handleSubmit, handlePrint }) => {
         </>
       )}
     </div>
-    // </Draggable>
   );
 };
 
