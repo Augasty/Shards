@@ -1,15 +1,16 @@
 import { doc, writeBatch } from "firebase/firestore";
 import { db } from "../../../../firebase";
 import { updateShardsRelatedShards } from "../../ShardSlice";
+import store from '../../../../store/store';
 
 export const MassUpdateShards = async (
   relationship,
   ShardList,
   curuseremail,
   changedShardId,
-  changedShardTitle,
-  dispatch
+  changedShardTitle
 ) => {
+
   const batch = writeBatch(db);
 
   //if the shardList is empty, the ref will return nothing, so, no further progression
@@ -24,7 +25,7 @@ export const MassUpdateShards = async (
 
       //update in redux
       // console.log(relationship)
-      dispatch(
+      store.dispatch(
         updateShardsRelatedShards({
           id: id,
           relationship: relationship,

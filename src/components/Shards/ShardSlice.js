@@ -28,8 +28,6 @@ const ShardSlice = createSlice({
     },
 
     updateShardsRelatedShards: (state, action) => {
-      // check why this is not working
-
       if (state[action.payload.id]) {
         state[action.payload.id][action.payload.relationship] = {
           ...state[action.payload.id][action.payload.relationship],
@@ -44,6 +42,12 @@ const ShardSlice = createSlice({
         delete state[id];
       }
     },
+    removeShardRelatedShard: (state, action) => {
+      const { id, relationship, deletedShardId } = action.payload;
+      if (state[id] && state[id][relationship]) {
+        delete state[id][relationship][deletedShardId];
+      }
+    }
   },
 });
 
@@ -52,6 +56,6 @@ export const {
   addSingleShard,
   updateShardProperties,
   updateShardsRelatedShards,
-  deleteSingleShard
+  deleteSingleShard, removeShardRelatedShard
 } = ShardSlice.actions;
 export default ShardSlice.reducer;

@@ -13,7 +13,7 @@ const index = ({ collapse, setCollapse}) => {
         <br/>
         Hi! Welcome to shards.
         <br/>
-        This tool autosaves every 3 seconds. To manually save, press ctrl + s.
+        This tool autosaves every 5 seconds. To manually save, press ctrl + s.
         And to format the texts, just drag and select the texts to open the format toolbar.
         <br/>
         <br/>

@@ -93,24 +93,20 @@ const ShardChange = ({ currentShard }) => {
     }
 
     // if initial title and final title are different:
-    MassUpdateShards(
+    MassUpdateShards( //updates both in firestore and local redux 
       "parentShards",
       updatedCurrentShard.childrenShards,
       curuser.email,
       currentShard.id,
-      updatedHeader,
-      dispatch
+      updatedHeader
     );
     MassUpdateShards(
       "childrenShards",
       updatedCurrentShard.parentShards,
       curuser.email,
       currentShard.id,
-      updatedHeader,
-      dispatch
+      updatedHeader
     );
-    // 1. update the heading in the relatedshard of all it's parent and children shards in firestore
-    // 2. do the same in redux
   };
 
 
@@ -123,20 +119,20 @@ const ShardChange = ({ currentShard }) => {
 
 
   function checkStringsEquality() {
-    console.log("check",initialShard.content, updatedCurrentShard.content);
+    // console.log("check",initialShard.content, updatedCurrentShard.content);
 
     if (initialShard.content !== updatedCurrentShard.content) {
-      handleSubmit(event)
+      handleSubmit()
       setInitialShard({...updatedCurrentShard})
     } else {
-      console.log("The strings are same.",initialShard.content, updatedCurrentShard.content);
+      // console.log("The strings are same.",initialShard.content, updatedCurrentShard.content);
     }
   }
 
   useEffect(() => {
     const intervalId = setInterval(() => {
       checkStringsEquality();
-    }, 3000);
+    }, 5000);
 
     return () => clearInterval(intervalId);
   },[initialShard.content, updatedCurrentShard.content]);
@@ -151,7 +147,7 @@ const ShardChange = ({ currentShard }) => {
 
         <CollapsableButtons currentShardId={currentShard.id} 
         handlePrint={()=>handlePrint(updatedCurrentShard.content)}
-        curshardChildren={currentShard.childrenShards}
+        curshard={currentShard}
         />
       </div>
       <div>

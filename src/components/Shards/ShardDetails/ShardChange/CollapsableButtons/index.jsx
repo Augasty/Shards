@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import btn from "../../../../../sharedStyles/MultipleButtonStyle.module.css";
 
@@ -7,32 +7,38 @@ import { auth, db } from "../../../../../firebase";
 import { deleteDoc, doc } from "firebase/firestore";
 import { deleteSingleShard } from "../../../ShardSlice";
 import { useDispatch } from "react-redux";
+import { isEmptyObject } from "../../ShardDetails";
+import { MassDeleteShardRelationship } from "./MassDeleteShardRelationship";
 
-const index = ({ currentShardId, handlePrint, curshardChildren }) => {
+const index = ({ currentShardId, handlePrint, curshard }) => {
+  let curshardChildren = curshard.childrenShards;
+
   const [collapse, setcollapse] = useState(true);
 
   const curuser = auth.currentUser;
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const removeShard = () => {
-    const ShardDocRef = doc(
-      db,
-      "users",
-      curuser?.email,
-      "ShardList",
-      currentShardId
-    );
-    deleteDoc(ShardDocRef);
 
-    // update in redux
+    if (!isEmptyObject(curshardChildren)) {
+      console.log("not empty");
+    } else {
+      deleteDoc(doc(db, "users", curuser?.email, "ShardList", currentShardId));
 
-    dispatch(deleteSingleShard({ id: currentShardId }));
+      dispatch(deleteSingleShard({ id: currentShardId }));
+      MassDeleteShardRelationship(
+        "childrenShards",
+        curshard.parentShards,
+        curuser.email,
+        curshard.id
+      );
 
-  // update the parents childlist (remove the currentshard from parents childrenlist) in firestore
-  // and in redux also
+      navigate(-1);
+    }
+
   };
-
 
   // make the button disabled if the children is not empty
   return (
@@ -59,9 +65,7 @@ const index = ({ currentShardId, handlePrint, curshardChildren }) => {
           </span>
 
           <span>
-            <Link to={`/`} style={{ textDecoration: "none" }}>
-              <button onClick={() => removeShard()}>Delete</button>
-            </Link>
+            <button onClick={() => removeShard()} disabled={!isEmptyObject(curshardChildren)}>Delete</button>
           </span>
         </>
       )}
