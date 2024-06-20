@@ -1,7 +1,7 @@
 import { doc, writeBatch } from "firebase/firestore";
 import { db } from "../../../../firebase";
 import { updateShardsRelatedShards } from "../../ShardSlice";
-import store from '../../../../store/store';
+import store from '../../../../store/store.ts';
 
 export const MassUpdateShards = async (
   relationship,

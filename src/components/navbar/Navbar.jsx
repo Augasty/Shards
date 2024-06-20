@@ -2,7 +2,7 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import styles from "./Navbar.module.css";
 import { useEffect, useState } from "react";
 import topchicken from "../../../assets/topchicken.jpg";
-import Aurelius from "../../../assets/Aurelius.png";
+import shards from "../../../assets/shards.png";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../firebase";
 import { signOut } from "firebase/auth";
@@ -44,7 +44,7 @@ const Navbar = () => {
 <Modal collapse={collapse} setCollapse={setCollapse}/>
     <nav className={styles.navbar}>
       <div className={styles.logo}>
-        <img src={Aurelius} onClick={() => navigate("/")} />
+        <img src={shards} onClick={() => navigate("/")} />
         <Link to="/"> Shards</Link>
       </div>
       <div>

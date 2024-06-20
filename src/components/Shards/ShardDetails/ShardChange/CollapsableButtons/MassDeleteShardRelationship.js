@@ -2,7 +2,7 @@ import { deleteField, doc, writeBatch } from "firebase/firestore";
 import { removeShardRelatedShard, updateShardsRelatedShards } from "../../../ShardSlice";
 import { db } from "../../../../../firebase";
 
-import store from '../../../../../store/store';
+import store from '../../../../../store/store.ts';
 
 export const MassDeleteShardRelationship = async (
   relationship,

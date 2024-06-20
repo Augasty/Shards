@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-import Aurelius from '../../../assets/Aurelius.png';
+import shards from '../../../assets/shards.png';
 import logoutbg from '../../../assets/logoutbg.png';
 import styles from './styles.module.css';
 import { GoogleAuthProvider, browserSessionPersistence, setPersistence, signInWithPopup } from 'firebase/auth';
@@ -50,8 +50,8 @@ const SignedOutHomePage = () => {
     <div className={styles.container} style={{ backgroundImage: `url(${logoutbg})` }}>
       <div className={styles.content}>
         <div className={styles.logo}>
-          <img src={Aurelius} alt="Aurelius Logo" />
-          <div className={styles.Aurelius}>Shards</div>
+          <img src={shards} alt="shards Logo" />
+          <div className={styles.shards}>Shards</div>
         </div>
         <div>
           <button onClick={handleSignIn} className={styles.LoginButton}>

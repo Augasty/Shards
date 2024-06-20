@@ -181,8 +181,8 @@ export function TextEditor({ content = "<p></p>", handleChange }) {
           <button
             onClick={(event) => {
               event.preventDefault();
-              editor.chain().focus().toggleHeading({ level: 3 }).run(); // Change level to 3 for H3
-            }}
+              editor.chain().focus().toggleHeading({ level: 3 }).run(); 
+              }}
             className={`${styles["menu-button"]} ${
               editor.isActive("heading", { level: 3 }) && styles["is-active"]
             }`}
