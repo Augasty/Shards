@@ -85,11 +85,10 @@ body {
 
 @media print {
   @page {
-    margin-top: 0;
-    margin-bottom: 0;
+    margin: 20mm 10mm;
   }
-  body {
-    padding-top: 72px;
-    padding-bottom: 72px;
+  html {
+    background-color: #FFFFFF;
+    margin: 0px; /* this affects the margin on the HTML before sending to printer */
   }
 }
