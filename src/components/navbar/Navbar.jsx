@@ -8,8 +8,8 @@ import { auth } from "../../firebase";
 import { signOut } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { fetchHeadShards } from "./fetchHeadShards";
-import Modal from "./Modal"
-
+import Modal from "./Modal";
+import { SignInWithGoogle } from "../SignedOutHomePage";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -35,47 +35,52 @@ const Navbar = () => {
     signOut(auth);
   };
 
-  
   const [collapse, setCollapse] = useState(true);
 
   return (
     <>
+      <Modal collapse={collapse} setCollapse={setCollapse} />
+      <nav className={styles.navbar}>
+        <div className={styles.logo}>
+          <img src={shards} onClick={() => navigate("/")} />
+          <Link to="/"> Shards</Link>
+        </div>
+        <div>
+          <ul className={styles.navbarList}>
+            {pathname == "/" && (
+              <li className={styles.navbarListItem}>
+                <NavLink to={"/create-shard"}>New Shard</NavLink>
+              </li>
+            )}
 
-<Modal collapse={collapse} setCollapse={setCollapse}/>
-    <nav className={styles.navbar}>
-      <div className={styles.logo}>
-        <img src={shards} onClick={() => navigate("/")} />
-        <Link to="/"> Shards</Link>
-      </div>
-      <div>
-        <ul className={styles.navbarList}>
-          {pathname == "/" && (
             <li className={styles.navbarListItem}>
-              <NavLink to={"/create-shard"}>New Shard</NavLink>
+              <div className={styles.infoButton}>
+                <span>
+                  <button onClick={() => setCollapse(false)}>Info</button>
+                </span>
+              </div>
             </li>
-          )}
 
-          <li className={styles.navbarListItem}>
-            <div className={styles.infoButton}>
-              <span>
-                <button onClick={() => setCollapse(false)}>Info</button>
-              </span>
-            </div>
-          </li>
-
-          <li className={styles.navbarListItem}>
-            <div onClick={(e) => handleSignOut(e)}>Log Out</div>
-          </li>
-
-          <NavLink onClick={() => setToggleChicken(!toggleChicken)}>
-            <img
-              src={toggleChicken ? curuser?.photoURL : topchicken}
-              alt="user"
-            />
-          </NavLink>
-        </ul>
-      </div>
-    </nav>
+            {curuser ? (
+              <>
+                <li className={styles.navbarListItem}>
+                  <div onClick={(e) => handleSignOut(e)}>Log Out</div>
+                </li>
+                <NavLink onClick={() => setToggleChicken(!toggleChicken)}>
+                  <img
+                    src={toggleChicken ? curuser?.photoURL : topchicken}
+                    alt="user"
+                  />
+                </NavLink>
+              </>
+            ) : (
+              <li className={styles.navbarListItem}>
+                <div onClick={(e) => SignInWithGoogle()}>Log In</div>
+              </li>
+            )}
+          </ul>
+        </div>
+      </nav>
     </>
   );
 };

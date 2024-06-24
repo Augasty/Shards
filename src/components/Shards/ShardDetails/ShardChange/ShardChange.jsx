@@ -40,7 +40,7 @@ const ShardChange = ({ currentShard }) => {
       ...prevData,
       content: value,
     }));
-    console.log(updatedCurrentShard)
+    // console.log(updatedCurrentShard)
   };
 
   // Function to handle form submission
@@ -137,6 +137,22 @@ const ShardChange = ({ currentShard }) => {
     return () => clearInterval(intervalId);
   },[initialShard.content, updatedCurrentShard.content]);
 
+
+  const publishInBlog =async (e = null)=>{
+    if (e) {
+      e.preventDefault();
+    }
+
+    setupdatedCurrentShard((prevData) => ({
+      ...prevData,
+      isPublished: true,
+    }));
+    await setDoc(doc(db, "blogs", 
+      currentShard?.id), updatedCurrentShard);  
+
+      handleSubmit()
+
+  }
   return (
     <div className={styles.container} onKeyDown={handleKeyDown}>
       <div className={styles.textContainers}>
@@ -148,6 +164,8 @@ const ShardChange = ({ currentShard }) => {
         <CollapsableButtons currentShardId={currentShard.id} 
         handlePrint={()=>handlePrint(updatedCurrentShard.content)}
         curshard={currentShard}
+        publishInBlog={()=>publishInBlog()}
+        isPublished={updatedCurrentShard.isPublished}
         />
       </div>
       <div>

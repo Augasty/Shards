@@ -8,7 +8,9 @@ import StarterKit from "@tiptap/starter-kit";
 import styles from "./styles.module.css";
 
 // eslint-disable-next-line react/prop-types
-export function TextEditor({ content = "<p></p>", handleChange }) {
+export function TextEditor({ content = "<p></p>", handleChange, isEditable = true }) {
+
+
   const editor = useEditor({
     extensions: [StarterKit, Underline],
     content,
@@ -17,6 +19,8 @@ export function TextEditor({ content = "<p></p>", handleChange }) {
       handleChange(htmlContent);
     },
     autofocus: "end",
+
+    editable: isEditable
   });
 
   const toggleBold = useCallback(

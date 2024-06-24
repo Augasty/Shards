@@ -73,6 +73,7 @@ const CreateShard = () => {
       childrenShards: {},
       // showInHome: parentShards.length == 0
       showInHome: isEmptyObject(parentShards),
+      isPublished: false,
     };
 
     // adding the created doc in firestore

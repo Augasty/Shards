@@ -8,37 +8,38 @@ import { auth, db } from '../../firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 
 
+export const SignInWithGoogle = async () => {
+  try {
+
+    
+    const provider = new GoogleAuthProvider();
+    await setPersistence(auth, browserSessionPersistence);
+    const result = await signInWithPopup(auth, provider);
+
+    // Check if the user's email exists in the 'database1' collection
+    const userEmail = result.user.email;
+
+    const userRef = doc(db, "users", userEmail);
+
+    const userSnapshot = await getDoc(userRef);
+
+    if (!userSnapshot.exists()) {
+      // console.log('new');
+      const userData = {
+        email: userEmail,
+      };
+      await setDoc(doc(db, "users", userEmail), userData);  
+    }
+  } catch (error) {
+    console.log('error while logging in',error);
+  }
+};
 const SignedOutHomePage = () => {
   // going to homepage when logging in
   const history = useNavigate();
 
 
-  const SignInWithGoogle = async () => {
-    try {
 
-      
-      const provider = new GoogleAuthProvider();
-      await setPersistence(auth, browserSessionPersistence);
-      const result = await signInWithPopup(auth, provider);
-  
-      // Check if the user's email exists in the 'database1' collection
-      const userEmail = result.user.email;
-  
-      const userRef = doc(db, "users", userEmail);
-  
-      const userSnapshot = await getDoc(userRef);
-  
-      if (!userSnapshot.exists()) {
-        // console.log('new');
-        const userData = {
-          email: userEmail,
-        };
-        await setDoc(doc(db, "users", userEmail), userData);  
-      }
-    } catch (error) {
-      console.log('error while logging in',error);
-    }
-  };
   const handleSignIn = () => {
     SignInWithGoogle();
     history("/")

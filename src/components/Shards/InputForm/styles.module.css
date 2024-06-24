@@ -36,7 +36,7 @@ code {
 
 .EditorContent > div {
   height: 92vh;
-  width: 80vw;
+  width: 100%;
   padding: 1vh;
   overflow-x: auto;
   overflow-y: auto;
