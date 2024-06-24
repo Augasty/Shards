@@ -47,7 +47,7 @@ const Navbar = () => {
         </div>
         <div>
           <ul className={styles.navbarList}>
-            {pathname == "/" && (
+            {pathname == "/" && curuser && (
               <li className={styles.navbarListItem}>
                 <NavLink to={"/create-shard"}>New Shard</NavLink>
               </li>
